@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeCortex ERP - Warden Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #5C4033;
+      --secondary: #D0816A;
+      --accent: #E8B4A0;
+      --success: #8B7355;
+      --warning: #A0826D;
+      --danger: #8B5A3C;
+      --light: #FAF0E6;
+      --dark: #3C2E26;
+      --gray: #8B7355;
+      --border: #E8D5C4;
+      --sidebar-width: 250px;
+      --peach-light: #FDF2E9;
+      --peach-medium: #F7E6D3;
+      --brown-light: #C4A484;
+      --brown-medium: #A68B5B;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #C4A484;
+      background-image: linear-gradient(315deg, #C4A484 0%, #fbc6b6 74%);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: linear-gradient(145deg, var(--dark), #2D1F19);
+      color: white;
+      padding: 1rem;
+      height: 100vh;
+      position: fixed;
+      overflow-y: auto;
+      box-shadow: 4px 0 15px rgba(60, 46, 38, 0.3);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav-item {
+      padding: 0.8rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+    }
+
+    .nav-item i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 2rem;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    /* Dashboard Cards */
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Stats Section */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-card i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* View Containers */
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+
+    /* Table Styles */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+
+    .data-table th, .data-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--light);
+    }
+
+    .data-table th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .data-table tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    /* Form Styles */
+    .form-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    /* Hostel Overview */
+    .hostel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hostel-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+    }
+
+    .hostel-card h3 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light);
+    }
+
+    .hostel-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .hostel-stat {
+      text-align: center;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+    }
+
+    .hostel-stat .number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .hostel-stat .label {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Search and Filter */
+    .search-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 40px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+    }
+
+    /* Action buttons */
+    .action-btn {
+      padding: 0.3rem 0.5rem;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .view-btn {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Student Detail Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--light);
+    }
+
+    .close-modal {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .student-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .detail-group {
+      margin-bottom: 1rem;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: var(--gray);
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .detail-value {
+      font-size: 1.1rem;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .page-btn {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .page-btn.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 70px;
+        padding: 0.5rem;
+      }
+      
+      .sidebar .logo, .sidebar .nav-text {
+        display: none;
+      }
+      
+      .logo-container {
+        justify-content: center;
+      }
+      
+      .nav-item {
+        justify-content: center;
+      }
+      
+      .nav-item i {
+        margin-right: 0;
+        font-size: 1.2rem;
+      }
+      
+      .main-content {
+        margin-left: 70px;
+        padding: 1rem;
+      }
+      
+      .dashboard-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .stats-container, .hostel-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .hostel-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .student-details {
+        grid-template-columns: 1fr;
+      }
+      
+      .data-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Toast Notification Styles */
+    #toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      max-width: 400px;
+    }
+
+    .toast {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      transform: translateX(400px);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity: 0;
+      border-left: 4px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+
+    .toast.warning {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .toast.info {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .toast-icon {
+      margin-right: 12px;
+      font-size: 1.2em;
+    }
+
+    .toast-message {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 4px;
+      margin-left: 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .toast-close:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      #toast-container {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+      }
+      
+      .toast {
+        transform: translateY(-100px);
+      }
+      
+      .toast.show {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <div class="logo-container">
+      <div class="logo">
+        <img src="logo.jpg" alt="College Logo" style="height: 40px; width: auto; border-radius: 25%;">
+      </div>
+    </div>
+    
+    <div class="nav-item active" data-view="dashboard-view">
+      <i class="fas fa-home"></i>
+      <span class="nav-text">Dashboard</span>
+    </div>
+    
+    <div class="nav-item" data-view="hostel-view">
+      <i class="fas fa-building"></i>
+      <span class="nav-text">Hostel Overview</span>
+    </div>
+    
+    <div class="nav-item" data-view="fees-view">
+      <i class="fas fa-money-bill-wave"></i>
+      <span class="nav-text">Hostel Fees</span>
+    </div>
+    
+    <div class="nav-item" data-view="gatepass-view">
+      <i class="fas fa-ticket-alt"></i>
+      <span class="nav-text">Gate Pass</span>
+    </div>
+    
+    <div class="nav-item" data-view="reports-view">
+      <i class="fas fa-chart-bar"></i>
+      <span class="nav-text">Reports</span>
+    </div>
+    
+    <div class="nav-item" data-view="students-view">
+      <i class="fas fa-user-graduate"></i>
+      <span class="nav-text">Student Info</span>
+    </div>
+    
+    <div class="nav-item" data-view="settings-view">
+      <i class="fas fa-cog"></i>
+      <span class="nav-text">Settings</span>
+    </div>
+    
+    <div class="nav-item" onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+      <span class="nav-text">Logout</span>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <div class="header">
+      <h1>Warden Dashboard</h1>
+      <div class="user-info">
+        <span>Welcome, Mr. Vikram Singh</span>
+        <div class="user-avatar">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Mr. Vikram Singh" onerror="this.style.display='none'; this.parentElement.innerHTML='VS';">
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard View -->
+    <div id="dashboard-view" class="view active">
+      <!-- Stats Overview -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-building"></i>
+          <div class="stat-number">4</div>
+          <div class="stat-label">Hostel Blocks</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-user-graduate"></i>
+          <div class="stat-number">256</div>
+          <div class="stat-label">Total Students</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-bed"></i>
+          <div class="stat-number">42</div>
+          <div class="stat-label">Vacant Rooms</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-ticket-alt"></i>
+          <div class="stat-number">12</div>
+          <div class="stat-label">Pending Gate Pass Requests</div>
+        </div>
+      </div>
+
+      <!-- Dashboard Cards -->
+      <div class="dashboard-cards">
+        <div class="card" data-view="hostel-view">
+          <i class="fas fa-building"></i>
+          <h3>Hostel Overview</h3>
+          <p>View and manage hostel blocks, rooms, and allocations</p>
+        </div>
+        
+        <div class="card" data-view="fees-view">
+          <i class="fas fa-money-bill-wave"></i>
+          <h3>Fee Management</h3>
+          <p>Track fee payments, generate receipts, and view pending fees</p>
+        </div>
+        
+        <div class="card" data-view="gatepass-view">
+          <i class="fas fa-ticket-alt"></i>
+          <h3>Gate Pass Approvals</h3>
+          <p>Review and approve student leave requests</p>
+        </div>
+        
+        <div class="card" data-view="reports-view">
+          <i class="fas fa-chart-bar"></i>
+          <h3>Reports & Analytics</h3>
+          <p>Generate reports on occupancy, fees, and other metrics</p>
+        </div>
+        
+        <div class="card" data-view="students-view">
+          <i class="fas fa-user-graduate"></i>
+          <h3>Student Information</h3>
+          <p>Access student profiles and contact details</p>
+        </div>
+        
+        <div class="card" data-view="settings-view">
+          <i class="fas fa-cog"></i>
+          <h3>Settings</h3>
+          <p>Configure system settings and preferences</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hostel Overview View -->
+    <div id="hostel-view" class="view">
+      <h2 class="section-title">Hostel Overview</h2>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-user-graduate"></i>
+          <div class="stat-number">256</div>
+          <div class="stat-label">Total Students</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-male"></i>
+          <div class="stat-number">180</div>
+          <div class="stat-label">Male Students</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-female"></i>
+          <div class="stat-number">76</div>
+          <div class="stat-label">Female Students</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-bed"></i>
+          <div class="stat-number">42</div>
+          <div class="stat-label">Vacant Rooms</div>
+        </div>
+      </div>
+      
+      <div class="hostel-grid">
+        <div class="hostel-card">
+          <h3>Hostel A (Boys)</h3>
+          <div class="hostel-stats">
+            <div class="hostel-stat">
+              <div class="number">85</div>
+              <div class="label">Students</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">12</div>
+              <div class="label">Vacant Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">45</div>
+              <div class="label">Total Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">33</div>
+              <div class="label">Occupied Rooms</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hostel-card">
+          <h3>Hostel B (Boys)</h3>
+          <div class="hostel-stats">
+            <div class="hostel-stat">
+              <div class="number">95</div>
+              <div class="label">Students</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">8</div>
+              <div class="label">Vacant Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">50</div>
+              <div class="label">Total Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">42</div>
+              <div class="label">Occupied Rooms</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hostel-card">
+          <h3>Hostel C (Girls)</h3>
+          <div class="hostel-stats">
+            <div class="hostel-stat">
+              <div class="number">45</div>
+              <div class="label">Students</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">15</div>
+              <div class="label">Vacant Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">30</div>
+              <div class="label">Total Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">15</div>
+              <div class="label">Occupied Rooms</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hostel-card">
+          <h3>Hostel D (Girls)</h3>
+          <div class="hostel-stats">
+            <div class="hostel-stat">
+              <div class="number">31</div>
+              <div class="label">Students</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">7</div>
+              <div class="label">Vacant Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">25</div>
+              <div class="label">Total Rooms</div>
+            </div>
+            <div class="hostel-stat">
+              <div class="number">18</div>
+              <div class="label">Occupied Rooms</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fees View -->
+    <div id="fees-view" class="view">
+      <h2 class="section-title">Fee Management</h2>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-money-bill-wave"></i>
+          <div class="stat-number">₹856,400</div>
+          <div class="stat-label">Total Fees Collected</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-clock"></i>
+          <div class="stat-number">₹123,600</div>
+          <div class="stat-label">Pending Fees</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-check-circle"></i>
+          <div class="stat-number">214</div>
+          <div class="stat-label">Students Paid</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-exclamation-circle"></i>
+          <div class="stat-number">42</div>
+          <div class="stat-label">Students Pending</div>
+        </div>
+      </div>
+      
+      <div class="form-container">
+        <h3>Fee History</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th>Hostel</th>
+              <th>Amount Paid</th>
+              <th>Pending Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ST2023001</td>
+              <td>Rohan Sharma</td>
+              <td>Hostel A</td>
+              <td>₹15,000</td>
+              <td>₹0</td>
+              <td><span style="color: var(--success);">Paid</span></td>
+            </tr>
+            <tr>
+              <td>ST2023002</td>
+              <td>Aisha Khan</td>
+              <td>Hostel C</td>
+              <td>₹12,000</td>
+              <td>₹3,000</td>
+              <td><span style="color: var(--warning);">Partial</span></td>
+            </tr>
+            <tr>
+              <td>ST2023003</td>
+              <td>Vikram Singh</td>
+              <td>Hostel B</td>
+              <td>₹0</td>
+              <td>₹15,000</td>
+              <td><span style="color: var(--danger);">Pending</span></td>
+            </tr>
+            <tr>
+              <td>ST2023004</td>
+              <td>Priya Patel</td>
+              <td>Hostel D</td>
+              <td>₹15,000</td>
+              <td>₹0</td>
+              <td><span style="color: var(--success);">Paid</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Gate Pass View -->
+    <div id="gatepass-view" class="view">
+      <h2 class="section-title">Gate Pass Approvals</h2>
+      
+      <div class="form-container">
+        <h3>Pending Gate Pass Requests</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Room No.</th>
+              <th>Bed No.</th>
+              <th>Phone No.</th>
+              <th>Guardian Name</th>
+              <th>Guardian Phone</th>
+              <th>Reason</th>
+              <th>Duration</th>
+              <th>Leave Date/Time</th>
+              <th>Return Date/Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rohan Sharma</td>
+              <td>A-205</td>
+              <td>3</td>
+              <td>9876543210</td>
+              <td>Rajesh Sharma</td>
+              <td>9876543211</td>
+              <td>Family Function</td>
+              <td>3 days</td>
+              <td>15 Dec, 10:00 AM</td>
+              <td>18 Dec, 5:00 PM</td>
+              <td>
+                <button class="btn btn-success" style="padding: 0.3rem 0.5rem;">Approve</button>
+                <button class="btn btn-danger" style="padding: 0.3rem 0.5rem;">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Aisha Khan</td>
+              <td>C-104</td>
+              <td>2</td>
+              <td>9876543220</td>
+              <td>Salman Khan</td>
+              <td>9876543221</td>
+              <td>Medical</td>
+              <td>1 day</td>
+              <td>16 Dec, 9:00 AM</td>
+              <td>17 Dec, 6:00 PM</td>
+              <td>
+                <button class="btn btn-success" style="padding: 0.3rem 0.5rem;">Approve</button>
+                <button class="btn btn-danger" style="padding: 0.3rem 0.5rem;">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Vikram Singh</td>
+              <td>B-109</td>
+              <td>1</td>
+              <td>9876543230</td>
+              <td>Mahendra Singh</td>
+              <td>9876543231</td>
+              <td>Personal Work</td>
+              <td>2 days</td>
+              <td>17 Dec, 11:00 AM</td>
+              <td>19 Dec, 4:00 PM</td>
+              <td>
+                <button class="btn btn-success" style="padding: 0.3rem 0.5rem;">Approve</button>
+                <button class="btn btn-danger" style="padding: 0.3rem 0.5rem;">Reject</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Reports View -->
+    <div id="reports-view" class="view">
+      <h2 class="section-title">Reports & Analytics</h2>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-user-plus"></i>
+          <div class="stat-number">+42</div>
+          <div class="stat-label">New Students This Year</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-user-check"></i>
+          <div class="stat-number">214</div>
+          <div class="stat-label">Returning Students</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-chart-line"></i>
+          <div class="stat-number">+19.6%</div>
+          <div class="stat-label">Growth From Last Year</div>
+        </div>
+        
+        <div class="stat-card">
+          <i class="fas fa-money-bill-wave"></i>
+          <div class="stat-number">+24.3%</div>
+          <div class="stat-label">Revenue Growth</div>
+        </div>
+      </div>
+      
+      <div class="form-container">
+        <h3>Year-over-Year Comparison</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Last Year (2022-23)</th>
+              <th>Current Year (2023-24)</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Total Students</td>
+              <td>214</td>
+              <td>256</td>
+              <td style="color: var(--success);">+42 (+19.6%)</td>
+            </tr>
+            <tr>
+              <td>Male Students</td>
+              <td>150</td>
+              <td>180</td>
+              <td style="color: var(--success);">+30 (+20%)</td>
+            </tr>
+            <tr>
+              <td>Female Students</td>
+              <td>64</td>
+              <td>76</td>
+              <td style="color: var(--success);">+12 (+18.7%)</td>
+            </tr>
+            <tr>
+              <td>Occupancy Rate</td>
+              <td>85.2%</td>
+              <td>89.1%</td>
+              <td style="color: var(--success);">+3.9%</td>
+            </tr>
+            <tr>
+              <td>Revenue</td>
+              <td>₹688,500</td>
+              <td>₹856,400</td>
+              <td style="color: var(--success);">+₹167,900 (+24.3%)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Students View -->
+    <div id="students-view" class="view">
+      <h2 class="section-title">Student Information</h2>
+      
+      <!-- Search and Filter -->
+      <div class="search-container">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search students by name, ID, room number..." id="search-input">
+        </div>
+        <button class="filter-btn">
+          <i class="fas fa-filter"></i> Filters
+        </button>
+      </div>
+
+      <!-- Students Table -->
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Enrollment No.</th>
+            <th>Name</th>
+            <th>Room No.</th>
+            <th>Bed No.</th>
+            <th>Phone No.</th>
+            <th>Course</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ST2023001</td>
+            <td>Rohan Sharma</td>
+            <td>A-205</td>
+            <td>3</td>
+            <td>9876543210</td>
+            <td>B.Tech CSE</td>
+            <td>
+              <button class="action-btn view-btn" data-id="ST2023001">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>ST2023002</td>
+            <td>Aisha Khan</td>
+            <td>C-104</td>
+            <td>2</td>
+            <td>9876543220</td>
+            <td>B.Tech ECE</td>
+            <td>
+              <button class="action-btn view-btn" data-id="ST2023002">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>ST2023003</td>
+            <td>Vikram Singh</td>
+            <td>B-109</td>
+            <td>1</td>
+            <td>9876543230</td>
+            <td>B.Tech Mechanical</td>
+            <td>
+              <button class="action-btn view-btn" data-id="ST2023003">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>ST2023004</td>
+            <td>Priya Patel</td>
+            <td>D-201</td>
+            <td>4</td>
+            <td>9876543240</td>
+            <td>B.Tech Civil</td>
+            <td>
+              <button class="action-btn view-btn" data-id="ST2023004">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Settings View -->
+    <div id="settings-view" class="view">
+      <h2 class="section-title">Settings</h2>
+      
+      <div class="form-container">
+        <h3>Update Your Profile</h3>
+        <div class="form-group">
+          <label for="warden-name">Full Name</label>
+          <input type="text" id="warden-name" value="Mr. Sharma">
+        </div>
+        
+        <div class="form-group">
+          <label for="warden-phone">Phone Number</label>
+          <input type="tel" id="warden-phone" value="9876500000">
+        </div>
+        
+        <div class="form-group">
+          <label for="warden-email">Email Address</label>
+          <input type="email" id="warden-email" value="warden@codecortex.edu">
+        </div>
+        
+        <div class="form-group">
+          <label for="warden-password">New Password</label>
+          <input type="password" id="warden-password" placeholder="Enter new password">
+        </div>
+        
+        <div class="form-group">
+          <label for="warden-confirm-password">Confirm Password</label>
+          <input type="password" id="warden-confirm-password" placeholder="Confirm new password">
+        </div>
+        
+        <button class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Detail Modal -->
+  <div class="modal" id="student-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Student Details</h2>
+        <span class="close-modal">&times;</span>
+      </div>
+      
+      <div class="student-details">
+        <div>
+          <div class="detail-group">
+            <div class="detail-label">Enrollment Number</div>
+            <div class="detail-value" id="detail-enrollment">ST2023001</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Full Name</div>
+            <div class="detail-value" id="detail-name">Rohan Sharma</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Room Number</div>
+            <div class="detail-value" id="detail-room">A-205</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Bed Number</div>
+            <div class="detail-value" id="detail-bed">3</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Phone Number</div>
+            <div class="detail-value" id="detail-phone">9876543210</div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="detail-group">
+            <div class="detail-label">Course</div>
+            <div class="detail-value" id="detail-course">B.Tech Computer Science</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Department</div>
+            <div class="detail-value" id="detail-department">Computer Science & Engineering</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Year/Semester</div>
+            <div class="detail-value" id="detail-year">3rd Year / 5th Semester</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Date of Admission</div>
+            <div class="detail-value" id="detail-admission">15 July 2021</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Email Address</div>
+            <div class="detail-value" id="detail-email">rohan.sharma@example.com</div>
+          </div>
+        </div>
+      </div>
+      
+      <h3 style="margin: 1.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--light);">Parent/Guardian Information</h3>
+      
+      <div class="student-details">
+        <div>
+          <div class="detail-group">
+            <div class="detail-label">Father's Name</div>
+            <div class="detail-value" id="detail-father">Rajesh Sharma</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Father's Phone</div>
+            <div class="detail-value" id="detail-father-phone">9876543211</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Father's Email</div>
+            <div class="detail-value" id="detail-father-email">rajesh.sharma@example.com</div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="detail-group">
+            <div class="detail-label">Mother's Name</div>
+            <div class="detail-value" id="detail-mother">Sunita Sharma</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Mother's Phone</div>
+            <div class="detail-value" id="detail-mother-phone">9876543212</div>
+          </div>
+          
+          <div class="detail-group">
+            <div class="detail-label">Mother's Email</div>
+            <div class="detail-value" id="detail-mother-email">sunita.sharma@example.com</div>
+          </div>
+        </div>
+      </div>
+      
+      <h3 style="margin: 1.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--light);">Emergency Contact</h3>
+      
+      <div class="student-details">
+        <div>
+          <div class="detail-group">
+            <div class="detail-label">Emergency Contact Name</div>
+            <div class="detail-value" id="detail-emergency-name">Rahul Sharma (Brother)</div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="detail-group">
+            <div class="detail-label">Emergency Contact Phone</div>
+            <div class="detail-value" id="detail-emergency-phone">9876543213</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample student data
+    const students = {
+      'ST2023001': {
+        name: 'Rohan Sharma',
+        room: 'A-205',
+        bed: '3',
+        phone: '9876543210',
+        course: 'B.Tech Computer Science',
+        department: 'Computer Science & Engineering',
+        year: '3rd Year / 5th Semester',
+        admission: '15 July 2021',
+        email: 'rohan.sharma@example.com',
+        father: 'Rajesh Sharma',
+        fatherPhone: '9876543211',
+        fatherEmail: 'rajesh.sharma@example.com',
+        mother: 'Sunita Sharma',
+        motherPhone: '9876543212',
+        motherEmail: 'sunita.sharma@example.com',
+        emergencyName: 'Rahul Sharma (Brother)',
+        emergencyPhone: '9876543213'
+      },
+      'ST2023002': {
+        name: 'Aisha Khan',
+        room: 'C-104',
+        bed: '2',
+        phone: '9876543220',
+        course: 'B.Tech Electronics & Communication',
+        department: 'Electronics & Communication Engineering',
+        year: '2nd Year / 3rd Semester',
+        admission: '20 July 2022',
+        email: 'aisha.khan@example.com',
+        father: 'Salman Khan',
+        fatherPhone: '9876543221',
+        fatherEmail: 'salman.khan@example.com',
+        mother: 'Fatima Khan',
+        motherPhone: '9876543222',
+        motherEmail: 'fatima.khan@example.com',
+        emergencyName: 'Ahmed Khan (Brother)',
+        emergencyPhone: '9876543223'
+      },
+      'ST2023003': {
+        name: 'Vikram Singh',
+        room: 'B-109',
+        bed: '1',
+        phone: '9876543230',
+        course: 'B.Tech Mechanical Engineering',
+        department: 'Mechanical Engineering',
+        year: '4th Year / 7th Semester',
+        admission: '10 July 2020',
+        email: 'vikram.singh@example.com',
+        father: 'Mahendra Singh',
+        fatherPhone: '9876543231',
+        fatherEmail: 'mahendra.singh@example.com',
+        mother: 'Rajkumari Singh',
+        motherPhone: '9876543232',
+        motherEmail: 'rajkumari.singh@example.com',
+        emergencyName: 'Vijay Singh (Uncle)',
+        emergencyPhone: '9876543233'
+      }
+    };
+
+    // Navigation functionality
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const targetView = this.getAttribute('data-view');
+        if (targetView) {
+          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+          showView(targetView);
+        }
+      });
+    });
+
+    // Card click functionality
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', function() {
+        const targetView = this.getAttribute('data-view');
+        if (targetView) {
+          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+          document.querySelector(`[data-view="${targetView}"]`).classList.add('active');
+          showView(targetView);
+        }
+      });
+    });
+
+    // View management
+    function showView(viewId) {
+      document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      
+      // Update page title based on selection
+      const pageTitle = document.querySelector(`[data-view="${viewId}"] .nav-text`).textContent;
+      document.querySelector('.header h1').textContent = pageTitle;
+    }
+
+    // Modal functionality
+    const modal = document.getElementById('student-modal');
+    const closeBtn = document.querySelector('.close-modal');
+    const viewButtons = document.querySelectorAll('.view-btn');
+
+    viewButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const studentId = this.getAttribute('data-id');
+        const student = students[studentId];
+        
+        if (student) {
+          // Populate modal with student data
+          document.getElementById('detail-enrollment').textContent = studentId;
+          document.getElementById('detail-name').textContent = student.name;
+          document.getElementById('detail-room').textContent = student.room;
+          document.getElementById('detail-bed').textContent = student.bed;
+          document.getElementById('detail-phone').textContent = student.phone;
+          document.getElementById('detail-course').textContent = student.course;
+          document.getElementById('detail-department').textContent = student.department;
+          document.getElementById('detail-year').textContent = student.year;
+          document.getElementById('detail-admission').textContent = student.admission;
+          document.getElementById('detail-email').textContent = student.email;
+          document.getElementById('detail-father').textContent = student.father;
+          document.getElementById('detail-father-phone').textContent = student.fatherPhone;
+          document.getElementById('detail-father-email').textContent = student.fatherEmail;
+          document.getElementById('detail-mother').textContent = student.mother;
+          document.getElementById('detail-mother-phone').textContent = student.motherPhone;
+          document.getElementById('detail-mother-email').textContent = student.motherEmail;
+          document.getElementById('detail-emergency-name').textContent = student.emergencyName;
+          document.getElementById('detail-emergency-phone').textContent = student.emergencyPhone;
+          
+          // Show modal
+          modal.style.display = 'flex';
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Gate pass approval functionality
+    document.querySelectorAll('.btn-success, .btn-danger').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const studentName = row.querySelector('td:first-child').textContent;
+        const action = this.classList.contains('btn-success') ? 'approved' : 'rejected';
+        
+        alert(`Gate pass for ${studentName} has been ${action}`);
+        row.remove();
+      });
+    });
+
+    // Settings form submission
+    document.querySelector('#settings-view .btn-primary').addEventListener('click', function() {
+      alert('Your profile has been updated successfully!');
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('search-input');
+    const tableRows = document.querySelectorAll('.data-table tbody tr');
+
+    searchInput.addEventListener('input', function() {
+      const searchText = this.value.toLowerCase();
+      
+      tableRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        let found = false;
+        
+        cells.forEach(cell => {
+          if (cell.textContent.toLowerCase().includes(searchText)) {
+            found = true;
+          }
+        });
+        
+        row.style.display = found ? '' : 'none';
+      });
+    });
+
+    // Pagination functionality
+    const pageButtons = document.querySelectorAll('.page-btn');
+    
+    pageButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        pageButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Simulate live updates for stats
+    function updateStats() {
+      const stats = document.querySelectorAll('.stat-number');
+      stats.forEach(stat => {
+        const currentValue = parseInt(stat.textContent.replace('₹', '').replace('+', '').replace(',', ''));
+        // Random fluctuation for demo purposes
+        const fluctuation = Math.floor(Math.random() * 5) - 2;
+        const newValue = Math.max(0, currentValue + fluctuation);
+        
+        if (stat.textContent.includes('₹')) {
+          stat.textContent = '₹' + newValue.toLocaleString('en-IN');
+        } else if (stat.textContent.includes('+')) {
+          stat.textContent = '+' + newValue;
+        } else {
+          stat.textContent = newValue;
+        }
+      });
+    }
+
+    // Toast Notification System
+    function showToast(message, type = 'info', duration = 4000) {
+      const container = document.getElementById('toast-container');
+      
+      // Create toast element
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      // Get appropriate icon based on type
+      let icon = '';
+      switch(type) {
+        case 'success':
+          icon = '<i class="fas fa-check-circle"></i>';
+          break;
+        case 'error':
+          icon = '<i class="fas fa-exclamation-circle"></i>';
+          break;
+        case 'warning':
+          icon = '<i class="fas fa-exclamation-triangle"></i>';
+          break;
+        default:
+          icon = '<i class="fas fa-info-circle"></i>';
+      }
+      
+      toast.innerHTML = `
+        <span class="toast-icon">${icon}</span>
+        <span class="toast-message">${message}</span>
+        <button class="toast-close" onclick="removeToast(this.parentElement)">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+      
+      // Add toast to container
+      container.appendChild(toast);
+      
+      // Trigger animation
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100);
+      
+      // Auto remove after duration
+      setTimeout(() => {
+        removeToast(toast);
+      }, duration);
+    }
+
+    function removeToast(toast) {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        if (toast.parentElement) {
+          toast.parentElement.removeChild(toast);
+        }
+      }, 400);
+    }
+
+    // Logout function
+    function logout() {
+      // Clear any stored session data
+      localStorage.clear();
+      sessionStorage.clear();
+      showToast('Logged out successfully!', 'success', 2000);
+      // Redirect after showing toast
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+    }
+
+    // Update stats every 30 seconds
+    setInterval(updateStats, 30000);
+  </script>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+</body>
+</html>

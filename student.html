@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCortex ERP System - Student Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #5C4033;
+            --secondary: #D0816A;
+            --accent: #E8B4A0;
+            --success: #8B7355;
+            --warning: #A0826D;
+            --danger: #8B5A3C;
+            --light: #FAF0E6;
+            --dark: #3C2E26;
+            --gray: #8B7355;
+            --border: #E8D5C4;
+            --sidebar-width: 250px;
+            --peach-light: #FDF2E9;
+            --peach-medium: #F7E6D3;
+            --brown-light: #C4A484;
+            --brown-medium: #A68B5B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #C4A484;
+            background-image: linear-gradient(315deg, #C4A484 0%, #fbc6b6 74%);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* Dashboard Styles */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(145deg, var(--dark), #2D1F19);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 15px rgba(60, 46, 38, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--peach-light), var(--accent));
+            border-radius: 8px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(196, 164, 132, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .view {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .view.active { 
+            display: block; 
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, white, var(--peach-light));
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            padding: 1.5rem;
+            border-top: 4px solid var(--primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(92, 64, 51, 0.25);
+            background: linear-gradient(135deg, white, #FDF8F2);
+        }
+
+        .card.success { 
+            border-top-color: var(--success);
+            background: linear-gradient(135deg, white, #F0EBE0);
+        }
+        .card.warning { 
+            border-top-color: var(--warning);
+            background: linear-gradient(135deg, white, #F5E6D3);
+        }
+        .card.danger { 
+            border-top-color: var(--danger);
+            background: linear-gradient(135deg, white, #EDE0D0);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Profile Section */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--primary);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-id {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-upload {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-upload:hover {
+            background-color: var(--secondary);
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+        }
+
+        .info-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.4);
+        }
+
+        /* Notifications */
+        .notifications {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+        }
+
+        .notification-item {
+            padding: 1rem;
+            border-left: 3px solid var(--primary);
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .notification-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Attendance Calendar */
+        .attendance-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .calendar-day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .day-header {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .present {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .absent {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .future {
+            background-color: #e9ecef;
+            color: var(--gray);
+        }
+
+        /* Document Upload */
+        .document-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .doc-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .doc-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .doc-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-submitted {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        /* Exam Results */
+        .result-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Hostel Section */
+        .hostel-section {
+            margin-bottom: 2rem;
+        }
+
+        .rules-list {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .rules-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 0.5rem;
+            }
+            
+            .sidebar .logo-text, .sidebar .nav-text {
+                display: none;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
+            .nav-item {
+                justify-content: center;
+            }
+            
+            .nav-item i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+                padding: 1rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Toast Notification Styles */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .toast.warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .toast-icon {
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+
+        .toast-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .toast-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #toast-container {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+            
+            .toast {
+                transform: translateY(-100px);
+            }
+            
+            .toast.show {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard -->
+    <div id="dashboard">
+        <div class="app-container">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="logo.jpg" alt="College Logo" style="height: 40px; width: auto; border-radius: 25%;">
+                    </div>
+                    <div class="logo-text">CodeCortex ERP</div>
+                </div>
+                
+                <div class="nav-item active" data-view="dashboard-view">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </div>
+                
+                <div class="nav-item" data-view="timetable-view">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Timetable</span>
+                </div>
+                
+                <div class="nav-item" data-view="attendance-view">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="nav-text">Attendance</span>
+                </div>
+                
+                <div class="nav-item" data-view="documents-view">
+                    <i class="fas fa-file-upload"></i>
+                    <span class="nav-text">Document Submission</span>
+                </div>
+                
+                <div class="nav-item" data-view="exams-view">
+                    <i class="fas fa-book"></i>
+                    <span class="nav-text">Exams</span>
+                </div>
+                
+                <div class="nav-item" data-view="hostel-view">
+                    <i class="fas fa-bed"></i>
+                    <span class="nav-text">Hostel</span>
+                </div>
+                
+                <div class="nav-item" data-view="fees-view">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span class="nav-text">Fees</span>
+                </div>
+                
+                <div class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <div class="header">
+                    <h1>Student Dashboard</h1>
+                    <div class="user-info">
+                        <span>Aryan Sharma</span>
+                        <div class="user-avatar">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Aryan Sharma" onerror="this.style.display='none'; this.parentElement.innerHTML='AS';">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard View -->
+                <div id="dashboard-view" class="view active">
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3>Attendance</h3>
+                            <div class="stat">87%</div>
+                            <p class="card-desc">Overall attendance percentage</p>
+                        </div>
+                        
+                        <div class="card success">
+                            <h3>Fees Status</h3>
+                            <div class="stat">Paid</div>
+                            <p class="card-desc">Next due: 15 Dec 2023</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>CGPA</h3>
+                            <div class="stat">8.72</div>
+                            <p class="card-desc">Current semester: 8.9</p>
+                        </div>
+                        
+                        <div class="card warning">
+                            <h3>Pending Documents</h3>
+                            <div class="stat">2</div>
+                            <p class="card-desc">Need to submit</p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-container">
+                        <div class="profile-card">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Profile" class="profile-img">
+                            <h2 class="profile-name">Aryan Sharma</h2>
+                            <p class="profile-id">ST20230025</p>
+                            <button class="btn-upload">Upload Photo</button>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h2 class="section-title">Personal Information</h2>
+                            
+                            <div class="info-group">
+                                <div class="info-item">
+                                    <div class="info-label">Enrollment Number</div>
+                                    <div class="info-value">ST20230025</div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-label">Course</div>
+                                    <div class="info-value">B.Tech Computer Science</div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-group">
+                                <div class="info-item">
+                                    <div class="info-label">Date of Birth</div>
+                                    <div class="info-value">15 May 2002</div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-label">Phone Number</div>
+                                    <div class="info-value">+91 9876543210</div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-group">
+                                <div class="info-item">
+                                    <div class="info-label">Email</div>
+                                    <div class="info-value">john.smith@example.com</div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-label">Admission Date</div>
+                                    <div class="info-value">1 Aug 2020</div>
+                                </div>
+                            </div>
+                            
+                            <h2 class="section-title">Family Information</h2>
+                            
+                            <div class="info-group">
+                                <div class="info-item">
+                                    <div class="info-label">Father's Name</div>
+                                    <div class="info-value">Robert Smith</div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-label">Father's Contact</div>
+                                    <div class="info-value">+91 9876543211</div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-group">
+                                <div class="info-item">
+                                    <div class="info-label">Mother's Name</div>
+                                    <div class="info-value">Mary Smith</div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-label">Mother's Contact</div>
+                                    <div class="info-value">+91 9876543212</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notifications">
+                        <h2 class="section-title">Notifications & Updates</h2>
+                        
+                        <div class="notification-item">
+                            <div class="notification-title">Last date for fee submission is 15th December</div>
+                            <div class="notification-date">Posted on: 1 Dec 2023</div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-title">Semester exams starting from 10th January</div>
+                            <div class="notification-date">Posted on: 28 Nov 2023</div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-title">Hostel fee payment due by 5th December</div>
+                            <div class="notification-date">Posted on: 25 Nov 2023</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timetable View -->
+                <div id="timetable-view" class="view">
+                    <h2 class="section-title">Class Timetable</h2>
+                    <div class="form-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>9:00 - 10:00</td>
+                                    <td>Data Structures<br>Prof. A. Kumar<br>akumar@example.com</td>
+                                    <td>Algorithms<br>Dr. S. Patel<br>spatel@example.com</td>
+                                    <td>Mathematics<br>Dr. R. Singh<br>rsingh@example.com</td>
+                                    <td>Data Structures<br>Prof. A. Kumar<br>akumar@example.com</td>
+                                    <td>Algorithms<br>Dr. S. Patel<br>spatel@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>10:00 - 11:00</td>
+                                    <td>Web Development<br>Prof. M. Sharma<br>msharma@example.com</td>
+                                    <td>Database Systems<br>Dr. P. Mehta<br>pmehta@example.com</td>
+                                    <td>Web Development<br>Prof. M. Sharma<br>msharma@example.com</td>
+                                    <td>Database Systems<br>Dr. P. Mehta<br>pmehta@example.com</td>
+                                    <td>Mathematics<br>Dr. R. Singh<br>rsingh@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>11:15 - 12:15</td>
+                                    <td>Operating Systems<br>Dr. V. Reddy<br>vreddy@example.com</td>
+                                    <td>Computer Networks<br>Prof. N. Gupta<br>ngupta@example.com</td>
+                                    <td>Operating Systems<br>Dr. V. Reddy<br>vreddy@example.com</td>
+                                    <td>Computer Networks<br>Prof. N. Gupta<br>ngupta@example.com</td>
+                                    <td>Soft Skills<br>Ms. A. Das<br>adas@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>12:15 - 1:15</td>
+                                    <td>Lunch Break</td>
+                                    <td>Lunch Break</td>
+                                    <td>Lunch Break</td>
+                                    <td>Lunch Break</td>
+                                    <td>Lunch Break</td>
+                                </tr>
+                                <tr>
+                                    <td>1:15 - 2:15</td>
+                                    <td>Software Engineering<br>Dr. K. Mishra<br>kmishra@example.com</td>
+                                    <td>AI & ML<br>Prof. J. Shah<br>jshah@example.com</td>
+                                    <td>Software Engineering<br>Dr. K. Mishra<br>kmishra@example.com</td>
+                                    <td>AI & ML<br>Prof. J. Shah<br>jshah@example.com</td>
+                                    <td>Project Lab<br>Dr. S. Patel<br>spatel@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>2:15 - 3:15</td>
+                                    <td>Project Lab<br>Dr. S. Patel<br>spatel@example.com</td>
+                                    <td>Library</td>
+                                    <td>Project Lab<br>Dr. S. Patel<br>spatel@example.com</td>
+                                    <td>Library</td>
+                                    <td>Project Lab<br>Dr. S. Patel<br>spatel@example.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Attendance View -->
+                <div id="attendance-view" class="view">
+                    <h2 class="section-title">Attendance Record</h2>
+                    <div class="form-container">
+                        <div class="card">
+                            <h3>Overall Attendance</h3>
+                            <div class="stat">87%</div>
+                            <p class="card-desc">Based on 125 of 144 classes attended</p>
+                        </div>
+                        
+                        <h3 style="margin: 2rem 0 1rem;">November 2023 Attendance</h3>
+                        
+                        <div class="attendance-calendar">
+                            <div class="calendar-day day-header">Sun</div>
+                            <div class="calendar-day day-header">Mon</div>
+                            <div class="calendar-day day-header">Tue</div>
+                            <div class="calendar-day day-header">Wed</div>
+                            <div class="calendar-day day-header">Thu</div>
+                            <div class="calendar-day day-header">Fri</div>
+                            <div class="calendar-day day-header">Sat</div>
+                            
+                            <!-- Empty days for the start of the month -->
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day future">1</div>
+                            
+                            <!-- Month days -->
+                            <div class="calendar-day present">2</div>
+                            <div class="calendar-day present">3</div>
+                            <div class="calendar-day present">4</div>
+                            <div class="calendar-day">5</div>
+                            
+                            <div class="calendar-day">6</div>
+                            <div class="calendar-day present">7</div>
+                            <div class="calendar-day present">8</div>
+                            <div class="calendar-day present">9</div>
+                            <div class="calendar-day absent">10</div>
+                            <div class="calendar-day">11</div>
+                            <div class="calendar-day">12</div>
+                            
+                            <div class="calendar-day">13</div>
+                            <div class="calendar-day present">14</div>
+                            <div class="calendar-day present">15</div>
+                            <div class="calendar-day present">16</div>
+                            <div class="calendar-day present">17</div>
+                            <div class="calendar-day">18</div>
+                            <div class="calendar-day">19</div>
+                            
+                            <div class="calendar-day">20</div>
+                            <div class="calendar-day present">21</div>
+                            <div class="calendar-day present">22</div>
+                            <div class="calendar-day absent">23</div>
+                            <div class="calendar-day present">24</div>
+                            <div class="calendar-day">25</div>
+                            <div class="calendar-day">26</div>
+                            
+                            <div class="calendar-day">27</div>
+                            <div class="calendar-day present">28</div>
+                            <div class="calendar-day present">29</div>
+                            <div class="calendar-day present">30</div>
+                            <div class="calendar-day future">1</div>
+                            <div class="calendar-day future">2</div>
+                            <div class="calendar-day future">3</div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 20px; height: 20px; background-color: #d1e7dd; border-radius: 3px;"></div>
+                                <span>Present</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 20px; height: 20px; background-color: #f8d7da; border-radius: 3px;"></div>
+                                <span>Absent</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 20px; height: 20px; background-color: #e9ecef; border-radius: 3px;"></div>
+                                <span>Future</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents View -->
+                <div id="documents-view" class="view">
+                    <h2 class="section-title">Document Submission</h2>
+                    <div class="form-container">
+                        <div class="document-item">
+                            <div class="doc-info">
+                                <div class="doc-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div>
+                                    <h3>10th Marksheet</h3>
+                                    <p>Upload your 10th standard marksheet in PDF format</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="doc-status status-submitted">Submitted</span>
+                                <button class="btn-primary" style="margin-left: 10px;">Reupload</button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-item">
+                            <div class="doc-info">
+                                <div class="doc-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div>
+                                    <h3>12th Marksheet</h3>
+                                    <p>Upload your 12th standard marksheet in PDF format</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="doc-status status-submitted">Submitted</span>
+                                <button class="btn-primary" style="margin-left: 10px;">Reupload</button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-item">
+                            <div class="doc-info">
+                                <div class="doc-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <div>
+                                    <h3>Aadhar Card</h3>
+                                    <p>Upload your Aadhar card in PDF format</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="doc-status status-pending">Pending</span>
+                                <button class="btn-primary" style="margin-left: 10px;">Upload</button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-item">
+                            <div class="doc-info">
+                                <div class="doc-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <h3>Leaving Certificate</h3>
+                                    <p>Upload your school leaving certificate in PDF format</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="doc-status status-pending">Pending</span>
+                                <button class="btn-primary" style="margin-left: 10px;">Upload</button>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; text-align: center;">
+                            <button class="btn-primary" style="background-color: #3b5998;">
+                                <i class="fab fa-digital-ocean"></i> Login with DigiLocker for Documents
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exams View -->
+                <div id="exams-view" class="view">
+                    <h2 class="section-title">Examination Section</h2>
+                    
+                    <div class="form-container">
+                        <h3 class="form-title">Exam Form</h3>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Full Name</div>
+                                <div class="info-value">John Smith</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Enrollment Number</div>
+                                <div class="info-value">ST20230025</div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Course</div>
+                                <div class="info-value">B.Tech Computer Science</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Semester</div>
+                                <div class="info-value">5th Semester</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exam-fee">Exam Fee Amount (₹)</label>
+                            <input type="text" id="exam-fee" value="2500" readonly>
+                        </div>
+                        <button class="btn-primary">Pay Exam Fee</button>
+                    </div>
+                    
+                    <div class="form-container">
+                        <h3 class="form-title">Admit Card</h3>
+                        <p>Download your admit card for the upcoming examinations</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download Admit Card
+                        </button>
+                    </div>
+                    
+                    <div class="form-container">
+                        <h3 class="form-title">Exam Timetable</h3>
+                        <p>Download the examination timetable for your semester</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download Exam Timetable
+                        </button>
+                    </div>
+                    
+                    <div class="form-container">
+                        <h3 class="form-title">Results</h3>
+                        <p>Download your semester results</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download Result
+                        </button>
+                        
+                        <div class="result-summary" style="margin-top: 2rem;">
+                            <div class="card">
+                                <h3>CGPA</h3>
+                                <div class="stat">8.72</div>
+                                <p class="card-desc">Current Semester: 8.9</p>
+                            </div>
+                            <div class="card success">
+                                <h3>Grades</h3>
+                                <div class="stat">A</div>
+                                <p class="card-desc">Average Grade</p>
+                            </div>
+                            <div class="card danger">
+                                <h3>Backlogs</h3>
+                                <div class="stat">0</div>
+                                <p class="card-desc">No pending backlogs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hostel View -->
+                <div id="hostel-view" class="view">
+                    <h2 class="section-title">Hostel Management</h2>
+                    
+                    <div class="form-container hostel-section">
+                        <h3 class="form-title">Hostel Overview</h3>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Hostel Name</div>
+                                <div class="info-value">Boys Hostel Block B</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Room Number</div>
+                                <div class="info-value">B-205</div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Bed Number</div>
+                                <div class="info-value">3</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Floor</div>
+                                <div class="info-value">2nd Floor</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin: 1.5rem 0 1rem;">Rules and Regulations</h4>
+                        <ul class="rules-list">
+                            <li>Strictly follow the 10:00 PM curfew</li>
+                            <li>Visitors are not allowed in rooms after 8:00 PM</li>
+                            <li>Keep your room clean and tidy</li>
+                            <li>Use electricity and water responsibly</li>
+                            <li>Report any maintenance issues to the warden</li>
+                            <li>No cooking in rooms</li>
+                            <li>Alcohol and smoking are strictly prohibited</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-container hostel-section">
+                        <h3 class="form-title">Gate Pass for Leave</h3>
+                        <div class="form-group">
+                            <label for="leave-reason">Reason for Leave</label>
+                            <select id="leave-reason" class="form-control">
+                                <option value="">Select Reason</option>
+                                <option value="home">Going Home</option>
+                                <option value="medical">Medical Reason</option>
+                                <option value="personal">Personal Work</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="info-group">
+                            <div class="form-group">
+                                <label for="leave-date">Leave Date and Time</label>
+                                <input type="datetime-local" id="leave-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="return-date">Return Date and Time</label>
+                                <input type="datetime-local" id="return-date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Destination</label>
+                            <input type="text" id="destination" placeholder="Where are you going?">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardian-name">Parent/Guardian Name</label>
+                            <input type="text" id="guardian-name" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardian-phone">Parent/Guardian Phone Number</label>
+                            <input type="tel" id="guardian-phone" placeholder="Enter phone number">
+                        </div>
+                        <button class="btn-primary">Submit Request</button>
+                    </div>
+                    
+                    <div class="form-container hostel-section">
+                        <h3 class="form-title">Pay Hostel Fees</h3>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Hostel Fee Amount</div>
+                                <div class="info-value">₹15,000</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Due Date</div>
+                                <div class="info-value">15 Dec 2023</div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Status</div>
+                                <div class="info-value">Pending</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Last Payment Date</div>
+                                <div class="info-value">15 Jun 2023</div>
+                            </div>
+                        </div>
+                        <button class="btn-primary" style="margin-top: 1rem;">Pay Hostel Fee</button>
+                        <button class="btn-primary" style="margin-top: 1rem; background-color: var(--success);">
+                            <i class="fas fa-download"></i> Download Fee Receipt
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fees View -->
+                <div id="fees-view" class="view">
+                    <h2 class="section-title">Fee Payment</h2>
+                    
+                    <div class="form-container">
+                        <h3 class="form-title">Pay Fees</h3>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Tuition Fee</div>
+                                <div class="info-value">₹45,000</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Due Date</div>
+                                <div class="info-value">15 Dec 2023</div>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Library Fee</div>
+                                <div class="info-value">₹2,000</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Lab Fee</div>
+                                <div class="info-value">₹5,000</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="total-fee">Total Amount (₹)</label>
+                            <input type="text" id="total-fee" value="52,000" readonly>
+                        </div>
+                        <button class="btn-primary">Pay Now</button>
+                    </div>
+                    
+                    <div class="form-container">
+                        <h3 class="form-title">Fee History</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Semester</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15 Jun 2023</td>
+                                    <td>4th Semester</td>
+                                    <td>₹52,000</td>
+                                    <td>Paid</td>
+                                    <td><button class="btn-primary" style="padding: 0.3rem 0.8rem;">Receipt</button></td>
+                                </tr>
+                                <tr>
+                                    <td>15 Dec 2022</td>
+                                    <td>3rd Semester</td>
+                                    <td>₹52,000</td>
+                                    <td>Paid</td>
+                                    <td><button class="btn-primary" style="padding: 0.3rem 0.8rem;">Receipt</button></td>
+                                </tr>
+                                <tr>
+                                    <td>15 Jun 2022</td>
+                                    <td>2nd Semester</td>
+                                    <td>₹52,000</td>
+                                    <td>Paid</td>
+                                    <td><button class="btn-primary" style="padding: 0.3rem 0.8rem;">Receipt</button></td>
+                                </tr>
+                                <tr>
+                                    <td>15 Dec 2021</td>
+                                    <td>1st Semester</td>
+                                    <td>₹52,000</td>
+                                    <td>Paid</td>
+                                    <td><button class="btn-primary" style="padding: 0.3rem 0.8rem;">Receipt</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        const views = document.querySelectorAll('.view');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const targetView = this.getAttribute('data-view');
+                if(targetView) {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    showView(targetView);
+                }
+            });
+        });
+
+        function showView(viewId) {
+            views.forEach(view => view.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            
+            // Update page title based on current view
+            const viewTitle = document.querySelector(`[data-view="${viewId}"] .nav-text`);
+            if (viewTitle) {
+                document.querySelector('.header h1').textContent = viewTitle.textContent;
+            }
+        }
+
+        // Role Selector on Login
+        const roleButtons = document.querySelectorAll('.role-btn');
+        roleButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                roleButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Simulate dynamic attendance percentage
+        function updateAttendancePercentage() {
+            const attendancePercentage = document.querySelector('#attendance-view .stat');
+            if (attendancePercentage) {
+                // Randomize slightly for demo purposes
+                const currentValue = parseInt(attendancePercentage.textContent);
+                const newValue = Math.min(100, Math.max(75, currentValue + (Math.random() * 2 - 1)));
+                attendancePercentage.textContent = Math.round(newValue) + '%';
+            }
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info', duration = 4000) {
+            const container = document.getElementById('toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            // Get appropriate icon based on type
+            let icon = '';
+            switch(type) {
+                case 'success':
+                    icon = '<i class="fas fa-check-circle"></i>';
+                    break;
+                case 'error':
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                    break;
+                case 'warning':
+                    icon = '<i class="fas fa-exclamation-triangle"></i>';
+                    break;
+                default:
+                    icon = '<i class="fas fa-info-circle"></i>';
+            }
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <span class="toast-message">${message}</span>
+                <button class="toast-close" onclick="removeToast(this.parentElement)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add toast to container
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                removeToast(toast);
+            }, duration);
+        }
+
+        function removeToast(toast) {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.parentElement.removeChild(toast);
+                }
+            }, 400);
+        }
+
+        // Logout function
+        function logout() {
+            // Clear any stored session data
+            localStorage.clear();
+            sessionStorage.clear();
+            showToast('Logged out successfully!', 'success', 2000);
+            // Redirect after showing toast
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Initialize and update attendance periodically
+        setInterval(updateAttendancePercentage, 5000);
+    </script>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+</body>
+</html>

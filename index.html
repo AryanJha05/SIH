@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCortex ERP System - Welcome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #5C4033;        /* Deep brown for primary buttons */
+            --secondary: #D0816A;      /* Muted rose for secondary elements */
+            --success: #2d5016;
+            --warning: #E29578;        /* Rose pink for highlights */
+            --danger: #d90429;
+            --dark: #3B2F2F;          /* Dark brown for headings */
+            --light: #FAF3E0;         /* Cream for cards/sections */
+            --gray: #333333;          /* Charcoal gray for paragraphs */
+            --border: #D0816A;        /* Muted rose for borders */
+            --card-bg: #FFF8F5;       /* Off-white for card backgrounds */
+            --shadow: rgba(92, 64, 51, 0.2); /* Soft brown shadow */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #C4A484;
+            background-image: linear-gradient(315deg, #C4A484 0%, #fbc6b6 74%);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+            color: var(--gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--dark);
+            opacity: 0.9;
+        }
+
+        .demo-notice {
+            background: var(--card-bg);
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--dark);
+            font-weight: 600;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .demo-notice i {
+            margin-right: 0.5rem;
+            color: var(--warning);
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .role-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 15px 35px var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(208, 129, 106, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .role-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px var(--shadow);
+            border-color: var(--secondary);
+        }
+
+        .role-card:hover::before {
+            left: 100%;
+        }
+
+        .role-card.admin {
+            border-top: 4px solid #8B4513;
+        }
+
+        .role-card.faculty {
+            border-top: 4px solid var(--primary);
+        }
+
+        .role-card.student {
+            border-top: 4px solid var(--secondary);
+        }
+
+        .role-card.parents {
+            border-top: 4px solid var(--warning);
+        }
+
+        .role-card.warden {
+            border-top: 4px solid #A0522D;
+        }
+
+        .role-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .role-card.admin .role-icon {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+        }
+
+        .role-card.faculty .role-icon {
+            background: linear-gradient(135deg, var(--primary), #8B4513);
+        }
+
+        .role-card.student .role-icon {
+            background: linear-gradient(135deg, var(--secondary), var(--warning));
+        }
+
+        .role-card.parents .role-icon {
+            background: linear-gradient(135deg, var(--warning), #CD853F);
+        }
+
+        .role-card.warden .role-icon {
+            background: linear-gradient(135deg, #A0522D, #8B4513);
+        }
+
+        .role-card:hover .role-icon {
+            transform: scale(1.1);
+        }
+
+        .role-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .role-description {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-features li {
+            padding: 0.3rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .role-features li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px var(--shadow);
+            background: linear-gradient(135deg, #4A332A, #B8735A);
+        }
+
+        .role-card.admin .login-btn {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+        }
+
+        .role-card.admin .login-btn:hover {
+            background: linear-gradient(135deg, #654321, #8B4513);
+        }
+
+        .role-card.faculty .login-btn {
+            background: linear-gradient(135deg, var(--primary), #8B4513);
+        }
+
+        .role-card.faculty .login-btn:hover {
+            background: linear-gradient(135deg, #4A332A, #654321);
+        }
+
+        .role-card.student .login-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--warning));
+        }
+
+        .role-card.student .login-btn:hover {
+            background: linear-gradient(135deg, #B8735A, #CD7F5A);
+        }
+
+        .role-card.parents .login-btn {
+            background: linear-gradient(135deg, var(--warning), #CD853F);
+        }
+
+        .role-card.parents .login-btn:hover {
+            background: linear-gradient(135deg, #CD7F5A, #A0522D);
+        }
+
+        .role-card.warden .login-btn {
+            background: linear-gradient(135deg, #A0522D, #8B4513);
+        }
+
+        .role-card.warden .login-btn:hover {
+            background: linear-gradient(135deg, #8B4513, #654321);
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--secondary);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-title {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .login-subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 10px var(--shadow);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .login-button:hover {
+            background: linear-gradient(135deg, #4A332A, #B8735A);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .demo-credentials {
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .demo-title {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-item {
+            background: white;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .demo-role {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .demo-creds {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-family: 'Courier New', monospace;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .role-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+        }
+
+        .toast {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.3);
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateX(350px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 350px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, var(--success), #A68B5B);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, var(--danger), #A0826D);
+        }
+
+        .toast .toast-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast .toast-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .toast .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 8px;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .toast .toast-close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container">
+        <!-- Role Selection Page (Default) -->
+        <div id="roleSelection">
+            <div class="header">
+                <div class="logo">
+                    <img src="logo.jpg" alt="College Logo" style="height: 60px; width: auto; border-radius: 25%;">
+                </div>
+                <h1 class="title">Welcome to CodeCortex Learning's Login</h1>
+                <p class="subtitle">Select your role to continue</p>
+            </div>
+
+            <div class="demo-notice">
+                <i class="fas fa-info-circle"></i>
+                This is a demo version with sample data. Click on any role below to login.
+            </div>
+
+            <div class="role-grid">
+                <!-- Admin Card -->
+                <div class="role-card admin" onclick="showLoginForRole('admin')">
+                    <div class="role-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="role-title">Administrator</h3>
+                    <p class="role-description">Complete system management and oversight</p>
+                    <ul class="role-features">
+                        <li>Faculty & Student Management</li>
+                        <li>Fee Collection Overview</li>
+                        <li>Results & Analytics</li>
+                        <li>Document Verification</li>
+                        <li>System Reports</li>
+                    </ul>
+                    <button class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Admin Login
+                    </button>
+                </div>
+
+                <!-- Faculty Card -->
+                <div class="role-card faculty" onclick="showLoginForRole('faculty')">
+                    <div class="role-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="role-title">Faculty</h3>
+                    <p class="role-description">Teaching and student guidance management</p>
+                    <ul class="role-features">
+                        <li>Class Scheduling</li>
+                        <li>Attendance Management</li>
+                        <li>Result Entry</li>
+                        <li>Student Progress</li>
+                        <li>Teaching Hours</li>
+                    </ul>
+                    <button class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Faculty Login
+                    </button>
+                </div>
+
+                <!-- Student Card -->
+                <div class="role-card student" onclick="showLoginForRole('student')">
+                    <div class="role-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3 class="role-title">Student</h3>
+                    <p class="role-description">Academic progress and hostel management</p>
+                    <ul class="role-features">
+                        <li>Academic Calendar</li>
+                        <li>Attendance Tracking</li>
+                        <li>Fee Payment</li>
+                        <li>Exam Forms</li>
+                        <li>Document Submission</li>
+                    </ul>
+                    <button class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Student Login
+                    </button>
+                </div>
+
+                <!-- Parents Card -->
+                <div class="role-card parents" onclick="showLoginForRole('parents')">
+                    <div class="role-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="role-title">Parents</h3>
+                    <p class="role-description">Monitor child's academic progress and activities</p>
+                    <ul class="role-features">
+                        <li>Academic Progress</li>
+                        <li>Attendance Monitoring</li>
+                        <li>Fee Status</li>
+                        <li>Communication</li>
+                        <li>Results Overview</li>
+                    </ul>
+                    <button class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Parent Login
+                    </button>
+                </div>
+
+                <!-- Warden Card -->
+                <div class="role-card warden" onclick="showLoginForRole('warden')">
+                    <div class="role-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="role-title">Warden</h3>
+                    <p class="role-description">Hostel management and student welfare</p>
+                    <ul class="role-features">
+                        <li>Hostel Management</li>
+                        <li>Fee Collection</li>
+                        <li>Gate Pass Approvals</li>
+                        <li>Student Information</li>
+                        <li>Occupancy Reports</li>
+                    </ul>
+                    <button class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Warden Login
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page (Hidden Initially) -->
+        <div id="loginPage" class="hidden">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1 class="title">CodeCortex ERP System</h1>
+                <p class="subtitle" id="roleTitle">Login to Continue</p>
+                
+                <button onclick="goBackToRoleSelection()" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+
+            <div class="login-container">
+                <h2 class="login-title" id="loginTitle">Administrator Login</h2>
+                <p class="login-subtitle">Enter your credentials to access the system</p>
+                
+                <form class="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="username" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Username / Email
+                        </label>
+                        <input type="text" id="username" class="form-input" placeholder="Enter your username or email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <input type="hidden" id="selectedRole" value="">
+                    
+                    <button type="submit" class="login-button">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </form>
+                
+                <div class="demo-credentials">
+                    <h4 class="demo-title"><i class="fas fa-info-circle"></i> Demo Credentials</h4>
+                    <div id="currentRoleCredentials">
+                        <div class="demo-item">
+                            <div class="demo-role">Administrator</div>
+                            <div class="demo-creds">Username: admin | Password: admin123</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toast Notification System
+        function showToast(message, type = 'info', duration = 4000) {
+            const container = document.getElementById('toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            // Get appropriate icon based on type
+            let icon = '';
+            switch(type) {
+                case 'success':
+                    icon = '<i class="fas fa-check-circle"></i>';
+                    break;
+                case 'error':
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                    break;
+                case 'warning':
+                    icon = '<i class="fas fa-exclamation-triangle"></i>';
+                    break;
+                default:
+                    icon = '<i class="fas fa-info-circle"></i>';
+            }
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <span class="toast-message">${message}</span>
+                <button class="toast-close" onclick="removeToast(this.parentElement)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add toast to container
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                removeToast(toast);
+            }, duration);
+        }
+
+        function removeToast(toast) {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.parentElement.removeChild(toast);
+                }
+            }, 400);
+        }
+
+        // Demo credentials for different roles
+        const credentials = {
+            admin: { username: 'admin', password: 'admin123' },
+            faculty: { username: 'faculty', password: 'faculty123' },
+            student: { username: 'student', password: 'student123' },
+            parents: { username: 'parents', password: 'parents123' },
+            warden: { username: 'warden', password: 'warden123' }
+        };
+
+        // Role display names
+        const roleNames = {
+            admin: 'Administrator',
+            faculty: 'Faculty',
+            student: 'Student',
+            parents: 'Parents',
+            warden: 'Warden'
+        };
+
+        // Show login page for selected role
+        function showLoginForRole(role) {
+            // Hide role selection page
+            document.getElementById('roleSelection').classList.add('hidden');
+            
+            // Show login page
+            document.getElementById('loginPage').classList.remove('hidden');
+            
+            // Update page content for selected role
+            document.getElementById('selectedRole').value = role;
+            document.getElementById('loginTitle').textContent = roleNames[role] + ' Login';
+            document.getElementById('roleTitle').textContent = 'Login as ' + roleNames[role];
+            
+            // Auto-fill credentials for demo
+            document.getElementById('username').value = credentials[role].username;
+            document.getElementById('password').value = credentials[role].password;
+            
+            // Update demo credentials display
+            updateCredentialsDisplay(role);
+        }
+
+        // Update credentials display for current role
+        function updateCredentialsDisplay(role) {
+            const credentialsDiv = document.getElementById('currentRoleCredentials');
+            credentialsDiv.innerHTML = `
+                <div class="demo-item">
+                    <div class="demo-role">${roleNames[role]}</div>
+                    <div class="demo-creds">Username: ${credentials[role].username} | Password: ${credentials[role].password}</div>
+                </div>
+            `;
+        }
+
+        // Go back to role selection
+        function goBackToRoleSelection() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('roleSelection').classList.remove('hidden');
+            
+            // Clear form
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('selectedRole').value = '';
+        }
+
+        // Handle login form submission
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('selectedRole').value;
+            
+            // Validate credentials
+            if (credentials[role] && 
+                credentials[role].username === username && 
+                credentials[role].password === password) {
+                
+                // Success message
+                showToast(`Welcome ${username}! Login successful as ${roleNames[role]}`, 'success', 2000);
+                
+                // Redirect to role-specific dashboard
+                showLoading();
+                setTimeout(() => {
+                    window.location.href = `${role}.html`;
+                    hideLoading();
+                }, 1500);
+                
+            } else {
+                showToast('Invalid credentials! Please check username and password.', 'error');
+            }
+        }
+
+        // Loading screen functions
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // Add entrance animation to cards on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.role-card');
+            
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

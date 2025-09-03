@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCortex ERP System - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #5C4033;
+            --secondary: #D0816A;
+            --accent: #E8B4A0;
+            --success: #8B7355;
+            --warning: #A0826D;
+            --danger: #8B5A3C;
+            --light: #FAF0E6;
+            --dark: #3C2E26;
+            --gray: #8B7355;
+            --border: #E8D5C4;
+            --sidebar-width: 250px;
+            --peach-light: #FDF2E9;
+            --peach-medium: #F7E6D3;
+            --brown-light: #C4A484;
+            --brown-medium: #A68B5B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #C4A484;
+            background-image: linear-gradient(315deg, #C4A484 0%, #fbc6b6 74%);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* App Container */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(145deg, var(--dark), #2D1F19);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 15px rgba(60, 46, 38, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--peach-light), var(--accent));
+            border-radius: 8px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(196, 164, 132, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .view {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .view.active { 
+            display: block; 
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, white, var(--peach-light));
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            padding: 1.5rem;
+            border-top: 4px solid var(--primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(92, 64, 51, 0.25);
+            background: linear-gradient(135deg, white, #FDF8F2);
+        }
+
+        .card.success { 
+            border-top-color: var(--success);
+            background: linear-gradient(135deg, white, #F0EBE0);
+        }
+        .card.warning { 
+            border-top-color: var(--warning);
+            background: linear-gradient(135deg, white, #F5E6D3);
+        }
+        .card.danger { 
+            border-top-color: var(--danger);
+            background: linear-gradient(135deg, white, #EDE0D0);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.4);
+        }
+
+        /* Charts Container */
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+        }
+
+        .chart-placeholder {
+            height: 250px;
+            background: linear-gradient(45deg, #f1f5f9, #e2e8f0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Status badges */
+        .status-active {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-inactive {
+            background-color: #f8d7da;
+            color: #842029;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Action buttons */
+        .action-btn {
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .btn-edit {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-view {
+            background-color: var(--success);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 0.5rem;
+            }
+            
+            .sidebar .logo-text, .sidebar .nav-text {
+                display: none;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
+            .nav-item {
+                justify-content: center;
+            }
+            
+            .nav-item i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+                padding: 1rem;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Toast Notification Styles */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .toast.warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .toast-icon {
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+
+        .toast-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .toast-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #toast-container {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+            
+            .toast {
+                transform: translateY(-100px);
+            }
+            
+            .toast.show {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="logo.jpg" alt="College Logo" style="height: 40px; width: auto; border-radius: 25%;">
+                </div>
+                <div class="logo-text">CodeCortex ERP</div>
+            </div>
+            
+            <div class="nav-item active" data-view="dashboard-view">
+                <i class="fas fa-home"></i>
+                <span class="nav-text">Dashboard</span>
+            </div>
+            
+            <div class="nav-item" data-view="faculties-view">
+                <i class="fas fa-user-tie"></i>
+                <span class="nav-text">Faculty Management</span>
+            </div>
+            
+            <div class="nav-item" data-view="students-view">
+                <i class="fas fa-user-graduate"></i>
+                <span class="nav-text">Student Management</span>
+            </div>
+            
+            <div class="nav-item" data-view="fees-view">
+                <i class="fas fa-money-bill-wave"></i>
+                <span class="nav-text">Fee Management</span>
+            </div>
+            
+            <div class="nav-item" data-view="results-view">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text">Results & Analytics</span>
+            </div>
+            
+            <div class="nav-item" data-view="documents-view">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">Document Management</span>
+            </div>
+            
+            <div class="nav-item" data-view="reports-view">
+                <i class="fas fa-chart-bar"></i>
+                <span class="nav-text">Reports</span>
+            </div>
+            
+            <div class="nav-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="nav-text">Logout</span>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Admin Dashboard</h1>
+                <div class="user-info">
+                    <span>Welcome, Dr. Priya Malhotra</span>
+                    <div class="user-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616c0763c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Dr. Priya Malhotra" onerror="this.style.display='none'; this.parentElement.innerHTML='PM';">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Total Faculties</h3>
+                        <div class="stat">48</div>
+                        <p class="card-desc">Active: 46 | On Leave: 2</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Total Students</h3>
+                        <div class="stat">1,248</div>
+                        <p class="card-desc">Male: 756 | Female: 492</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Fees Collected</h3>
+                        <div class="stat">₹2.4 Cr</div>
+                        <p class="card-desc">Pending: ₹32 Lakhs</p>
+                    </div>
+                    
+                    <div class="card danger">
+                        <h3>Pending Documents</h3>
+                        <div class="stat">124</div>
+                        <p class="card-desc">Requires immediate attention</p>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Student Enrollment Trends</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--primary);"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3>Department-wise Distribution</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-pie" style="font-size: 3rem; color: var(--success);"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Recent Activities</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Activity</th>
+                                <th>User</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10:30 AM</td>
+                                <td>New student enrollment - John Doe</td>
+                                <td>Admission Office</td>
+                                <td><span class="status-active">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:15 AM</td>
+                                <td>Fee payment received - ST2023045</td>
+                                <td>Accounts Department</td>
+                                <td><span class="status-active">Processed</span></td>
+                            </tr>
+                            <tr>
+                                <td>09:45 AM</td>
+                                <td>Document verification pending - ST2023098</td>
+                                <td>Document Office</td>
+                                <td><span class="status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>09:30 AM</td>
+                                <td>Faculty leave request - Dr. Sharma</td>
+                                <td>HR Department</td>
+                                <td><span class="status-pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Faculty Management View -->
+            <div id="faculties-view" class="view">
+                <h2 class="section-title">Faculty Management</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Total Faculties</h3>
+                        <div class="stat">48</div>
+                        <p class="card-desc">Full-time: 42 | Part-time: 6</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Active Faculties</h3>
+                        <div class="stat">46</div>
+                        <p class="card-desc">Currently teaching</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>On Leave</h3>
+                        <div class="stat">2</div>
+                        <p class="card-desc">Medical/Personal leave</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Faculty List</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Faculty ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Subject</th>
+                                <th>Experience</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>FAC001</td>
+                                <td>Dr. Rajesh Kumar</td>
+                                <td>Computer Science</td>
+                                <td>Data Structures</td>
+                                <td>8 years</td>
+                                <td><span class="status-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FAC002</td>
+                                <td>Prof. Sunita Sharma</td>
+                                <td>Electronics</td>
+                                <td>Digital Circuits</td>
+                                <td>12 years</td>
+                                <td><span class="status-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FAC003</td>
+                                <td>Dr. Amit Patel</td>
+                                <td>Mechanical</td>
+                                <td>Thermodynamics</td>
+                                <td>15 years</td>
+                                <td><span class="status-inactive">On Leave</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FAC004</td>
+                                <td>Ms. Priya Singh</td>
+                                <td>Civil</td>
+                                <td>Structural Engineering</td>
+                                <td>6 years</td>
+                                <td><span class="status-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Student Management View -->
+            <div id="students-view" class="view">
+                <h2 class="section-title">Student Management</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Total Students</h3>
+                        <div class="stat">1,248</div>
+                        <p class="card-desc">Active enrollments</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Male Students</h3>
+                        <div class="stat">756</div>
+                        <p class="card-desc">60.6% of total</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Female Students</h3>
+                        <div class="stat">492</div>
+                        <p class="card-desc">39.4% of total</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>New Admissions</h3>
+                        <div class="stat">312</div>
+                        <p class="card-desc">This academic year</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Department-wise Student Distribution</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Total Students</th>
+                                <th>Male</th>
+                                <th>Female</th>
+                                <th>1st Year</th>
+                                <th>2nd Year</th>
+                                <th>3rd Year</th>
+                                <th>4th Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Computer Science</td>
+                                <td>386</td>
+                                <td>245</td>
+                                <td>141</td>
+                                <td>98</td>
+                                <td>102</td>
+                                <td>95</td>
+                                <td>91</td>
+                            </tr>
+                            <tr>
+                                <td>Electronics & Communication</td>
+                                <td>298</td>
+                                <td>178</td>
+                                <td>120</td>
+                                <td>76</td>
+                                <td>78</td>
+                                <td>72</td>
+                                <td>72</td>
+                            </tr>
+                            <tr>
+                                <td>Mechanical</td>
+                                <td>245</td>
+                                <td>201</td>
+                                <td>44</td>
+                                <td>65</td>
+                                <td>62</td>
+                                <td>58</td>
+                                <td>60</td>
+                            </tr>
+                            <tr>
+                                <td>Civil</td>
+                                <td>198</td>
+                                <td>132</td>
+                                <td>66</td>
+                                <td>52</td>
+                                <td>48</td>
+                                <td>49</td>
+                                <td>49</td>
+                            </tr>
+                            <tr>
+                                <td>Electrical</td>
+                                <td>121</td>
+                                <td>98</td>
+                                <td>23</td>
+                                <td>32</td>
+                                <td>30</td>
+                                <td>29</td>
+                                <td>30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Fee Management View -->
+            <div id="fees-view" class="view">
+                <h2 class="section-title">Fee Management</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card success">
+                        <h3>Total Fees Collected</h3>
+                        <div class="stat">₹2.4 Cr</div>
+                        <p class="card-desc">Current academic year</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Pending Fees</h3>
+                        <div class="stat">₹32 L</div>
+                        <p class="card-desc">Amount due</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Students Paid</h3>
+                        <div class="stat">1,156</div>
+                        <p class="card-desc">92.6% of total</p>
+                    </div>
+                    
+                    <div class="card danger">
+                        <h3>Students Pending</h3>
+                        <div class="stat">92</div>
+                        <p class="card-desc">7.4% of total</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Fee Collection Summary</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Total Students</th>
+                                <th>Fee Collected</th>
+                                <th>Fee Pending</th>
+                                <th>Collection %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Computer Science</td>
+                                <td>386</td>
+                                <td>₹85.4 L</td>
+                                <td>₹8.6 L</td>
+                                <td>90.8%</td>
+                            </tr>
+                            <tr>
+                                <td>Electronics & Communication</td>
+                                <td>298</td>
+                                <td>₹68.2 L</td>
+                                <td>₹6.8 L</td>
+                                <td>91.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Mechanical</td>
+                                <td>245</td>
+                                <td>₹56.8 L</td>
+                                <td>₹5.2 L</td>
+                                <td>91.6%</td>
+                            </tr>
+                            <tr>
+                                <td>Civil</td>
+                                <td>198</td>
+                                <td>₹46.2 L</td>
+                                <td>₹4.8 L</td>
+                                <td>90.6%</td>
+                            </tr>
+                            <tr>
+                                <td>Electrical</td>
+                                <td>121</td>
+                                <td>₹28.4 L</td>
+                                <td>₹2.6 L</td>
+                                <td>91.6%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Results & Analytics View -->
+            <div id="results-view" class="view">
+                <h2 class="section-title">Results & Analytics</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card success">
+                        <h3>Overall Pass Rate</h3>
+                        <div class="stat">94.2%</div>
+                        <p class="card-desc">Last semester results</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Average CGPA</h3>
+                        <div class="stat">7.8</div>
+                        <p class="card-desc">All departments combined</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Students with Backlogs</h3>
+                        <div class="stat">72</div>
+                        <p class="card-desc">5.8% of total students</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Distinction Holders</h3>
+                        <div class="stat">298</div>
+                        <p class="card-desc">CGPA > 8.5</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Department-wise Results Analysis</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Students Appeared</th>
+                                <th>Pass Rate</th>
+                                <th>Average CGPA</th>
+                                <th>Distinction</th>
+                                <th>First Class</th>
+                                <th>Second Class</th>
+                                <th>Backlogs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Computer Science</td>
+                                <td>386</td>
+                                <td>96.1%</td>
+                                <td>8.2</td>
+                                <td>142</td>
+                                <td>156</td>
+                                <td>73</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>Electronics & Communication</td>
+                                <td>298</td>
+                                <td>94.6%</td>
+                                <td>7.9</td>
+                                <td>98</td>
+                                <td>124</td>
+                                <td>60</td>
+                                <td>16</td>
+                            </tr>
+                            <tr>
+                                <td>Mechanical</td>
+                                <td>245</td>
+                                <td>92.2%</td>
+                                <td>7.6</td>
+                                <td>68</td>
+                                <td>98</td>
+                                <td>60</td>
+                                <td>19</td>
+                            </tr>
+                            <tr>
+                                <td>Civil</td>
+                                <td>198</td>
+                                <td>91.4%</td>
+                                <td>7.4</td>
+                                <td>45</td>
+                                <td>78</td>
+                                <td>58</td>
+                                <td>17</td>
+                            </tr>
+                            <tr>
+                                <td>Electrical</td>
+                                <td>121</td>
+                                <td>89.3%</td>
+                                <td>7.2</td>
+                                <td>28</td>
+                                <td>52</td>
+                                <td>36</td>
+                                <td>5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Document Management View -->
+            <div id="documents-view" class="view">
+                <h2 class="section-title">Document Management</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card danger">
+                        <h3>Pending Documents</h3>
+                        <div class="stat">124</div>
+                        <p class="card-desc">Requires verification</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Verified Documents</h3>
+                        <div class="stat">2,486</div>
+                        <p class="card-desc">Successfully processed</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Under Review</h3>
+                        <div class="stat">45</div>
+                        <p class="card-desc">In verification process</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Total Documents</h3>
+                        <div class="stat">2,655</div>
+                        <p class="card-desc">All submissions</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Pending Document Verification</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Document Type</th>
+                                <th>Submitted Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ST2023145</td>
+                                <td>Rahul Verma</td>
+                                <td>10th Marksheet</td>
+                                <td>15 Nov 2023</td>
+                                <td><span class="status-pending">Pending</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Verify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ST2023156</td>
+                                <td>Sneha Patel</td>
+                                <td>Transfer Certificate</td>
+                                <td>18 Nov 2023</td>
+                                <td><span class="status-pending">Pending</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Verify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ST2023167</td>
+                                <td>Amit Kumar</td>
+                                <td>Aadhar Card</td>
+                                <td>20 Nov 2023</td>
+                                <td><span class="status-pending">Pending</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Verify</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ST2023178</td>
+                                <td>Pooja Singh</td>
+                                <td>Income Certificate</td>
+                                <td>22 Nov 2023</td>
+                                <td><span class="status-pending">Pending</span></td>
+                                <td>
+                                    <button class="action-btn btn-view">View</button>
+                                    <button class="action-btn btn-edit">Verify</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Reports View -->
+            <div id="reports-view" class="view">
+                <h2 class="section-title">Reports</h2>
+                
+                <div class="form-container">
+                    <h3 class="form-title">Generate Reports</h3>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3>Student Reports</h3>
+                            <p class="card-desc">Generate student enrollment, attendance, and performance reports</p>
+                            <button class="btn-primary" style="margin-top: 1rem;">Generate</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Faculty Reports</h3>
+                            <p class="card-desc">Faculty performance, attendance, and workload reports</p>
+                            <button class="btn-primary" style="margin-top: 1rem;">Generate</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Financial Reports</h3>
+                            <p class="card-desc">Fee collection, pending payments, and financial analytics</p>
+                            <button class="btn-primary" style="margin-top: 1rem;">Generate</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Academic Reports</h3>
+                            <p class="card-desc">Semester results, CGPA analysis, and academic progress</p>
+                            <button class="btn-primary" style="margin-top: 1rem;">Generate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Recent Reports</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Report Name</th>
+                                <th>Type</th>
+                                <th>Generated Date</th>
+                                <th>Generated By</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monthly Fee Collection Report</td>
+                                <td>Financial</td>
+                                <td>01 Dec 2023</td>
+                                <td>Admin</td>
+                                <td>
+                                    <button class="action-btn btn-view">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Semester Results Analysis</td>
+                                <td>Academic</td>
+                                <td>28 Nov 2023</td>
+                                <td>Admin</td>
+                                <td>
+                                    <button class="action-btn btn-view">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Faculty Attendance Report</td>
+                                <td>Faculty</td>
+                                <td>25 Nov 2023</td>
+                                <td>HR Department</td>
+                                <td>
+                                    <button class="action-btn btn-view">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Student Enrollment Summary</td>
+                                <td>Student</td>
+                                <td>20 Nov 2023</td>
+                                <td>Admission Office</td>
+                                <td>
+                                    <button class="action-btn btn-view">Download</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        const views = document.querySelectorAll('.view');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const targetView = this.getAttribute('data-view');
+                if(targetView) {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    showView(targetView);
+                }
+            });
+        });
+
+        function showView(viewId) {
+            views.forEach(view => view.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            
+            // Update page title based on current view
+            const viewTitle = document.querySelector(`[data-view="${viewId}"] .nav-text`);
+            if (viewTitle) {
+                document.querySelector('.header h1').textContent = viewTitle.textContent;
+            }
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info', duration = 4000) {
+            const container = document.getElementById('toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            // Get appropriate icon based on type
+            let icon = '';
+            switch(type) {
+                case 'success':
+                    icon = '<i class="fas fa-check-circle"></i>';
+                    break;
+                case 'error':
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                    break;
+                case 'warning':
+                    icon = '<i class="fas fa-exclamation-triangle"></i>';
+                    break;
+                default:
+                    icon = '<i class="fas fa-info-circle"></i>';
+            }
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <span class="toast-message">${message}</span>
+                <button class="toast-close" onclick="removeToast(this.parentElement)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add toast to container
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                removeToast(toast);
+            }, duration);
+        }
+
+        function removeToast(toast) {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.parentElement.removeChild(toast);
+                }
+            }, 400);
+        }
+
+        function logout() {
+            // Clear any stored session data
+            localStorage.clear();
+            sessionStorage.clear();
+            showToast('Logged out successfully!', 'success', 2000);
+            // Redirect to login page after showing toast
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Action button handlers
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-view')) {
+                alert('Viewing details...');
+            } else if (e.target.classList.contains('btn-edit')) {
+                alert('Opening edit form...');
+            } else if (e.target.classList.contains('btn-delete')) {
+                if (confirm('Are you sure you want to delete this item?')) {
+                    alert('Item deleted successfully!');
+                }
+            }
+        });
+
+        // Simulate real-time updates
+        function updateStats() {
+            const stats = document.querySelectorAll('.stat');
+            stats.forEach(stat => {
+                if (stat.textContent.includes('₹')) {
+                    // Simulate fee collection increase
+                    const match = stat.textContent.match(/[\d.]+/);
+                    if (match) {
+                        const value = parseFloat(match[0]);
+                        const newValue = (value + 0.1).toFixed(1);
+                        stat.textContent = stat.textContent.replace(match[0], newValue);
+                    }
+                }
+            });
+        }
+
+        // Update stats every 30 seconds
+        setInterval(updateStats, 30000);
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            showView('dashboard-view');
+        });
+    </script>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+</body>
+</html>

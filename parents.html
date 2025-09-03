@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCortex ERP System - Parents Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #5C4033;
+            --secondary: #D0816A;
+            --accent: #E8B4A0;
+            --success: #8B7355;
+            --warning: #A0826D;
+            --danger: #8B5A3C;
+            --light: #FAF0E6;
+            --dark: #3C2E26;
+            --gray: #8B7355;
+            --border: #E8D5C4;
+            --sidebar-width: 250px;
+            --peach-light: #FDF2E9;
+            --peach-medium: #F7E6D3;
+            --brown-light: #C4A484;
+            --brown-medium: #A68B5B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #C4A484;
+            background-image: linear-gradient(315deg, #C4A484 0%, #fbc6b6 74%);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* App Container */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(145deg, var(--dark), #2D1F19);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 15px rgba(60, 46, 38, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--peach-light), var(--accent));
+            border-radius: 8px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(196, 164, 132, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .view {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .view.active { 
+            display: block; 
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, white, var(--peach-light));
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            padding: 1.5rem;
+            border-top: 4px solid var(--primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(92, 64, 51, 0.25);
+            background: linear-gradient(135deg, white, #FDF8F2);
+        }
+
+        .card.success { 
+            border-top-color: var(--success);
+            background: linear-gradient(135deg, white, #F0EBE0);
+        }
+        .card.warning { 
+            border-top-color: var(--warning);
+            background: linear-gradient(135deg, white, #F5E6D3);
+        }
+        .card.danger { 
+            border-top-color: var(--danger);
+            background: linear-gradient(135deg, white, #EDE0D0);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Student Profile */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--primary);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-id {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+        }
+
+        .info-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.4);
+        }
+
+        /* Attendance Calendar */
+        .attendance-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .calendar-day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .day-header {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .present {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .absent {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .future {
+            background-color: #e9ecef;
+            color: var(--gray);
+        }
+
+        /* Result Cards */
+        .result-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Status badges */
+        .status-paid {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-overdue {
+            background-color: #f8d7da;
+            color: #842029;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Action buttons */
+        .action-btn {
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .btn-download {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-pay {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 0.5rem;
+            }
+            
+            .sidebar .logo-text, .sidebar .nav-text {
+                display: none;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
+            .nav-item {
+                justify-content: center;
+            }
+            
+            .nav-item i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+                padding: 1rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Toast Notification Styles */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .toast.warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .toast-icon {
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+
+        .toast-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .toast-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #toast-container {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+            
+            .toast {
+                transform: translateY(-100px);
+            }
+            
+            .toast.show {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="logo.jpg" alt="College Logo" style="height: 40px; width: auto; border-radius: 25%;">
+                </div>
+                <div class="logo-text">CodeCortex ERP</div>
+            </div>
+            
+            <div class="nav-item active" data-view="dashboard-view">
+                <i class="fas fa-home"></i>
+                <span class="nav-text">Student Dashboard</span>
+            </div>
+            
+            <div class="nav-item" data-view="results-view">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text">Student Results</span>
+            </div>
+            
+            <div class="nav-item" data-view="attendance-view">
+                <i class="fas fa-check-circle"></i>
+                <span class="nav-text">Attendance</span>
+            </div>
+            
+            <div class="nav-item" data-view="fees-view">
+                <i class="fas fa-money-bill-wave"></i>
+                <span class="nav-text">Fees & Payments</span>
+            </div>
+            
+            <div class="nav-item" data-view="hostel-view">
+                <i class="fas fa-bed"></i>
+                <span class="nav-text">Hostel Information</span>
+            </div>
+            
+            <div class="nav-item" data-view="timetable-view">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="nav-text">Timetable</span>
+            </div>
+            
+            <div class="nav-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="nav-text">Logout</span>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Parents Dashboard</h1>
+                <div class="user-info">
+                    <span>Welcome, Mr. Prem Agarwal</span>
+                    <div class="user-avatar">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Mr. Prem Agarwal" onerror="this.style.display='none'; this.parentElement.innerHTML='PA';">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Overall Attendance</h3>
+                        <div class="stat">87%</div>
+                        <p class="card-desc">125 of 144 classes attended</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Current CGPA</h3>
+                        <div class="stat">8.72</div>
+                        <p class="card-desc">Current semester: 8.9</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Fee Status</h3>
+                        <div class="stat">Paid</div>
+                        <p class="card-desc">Next due: 15 Dec 2023</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Hostel Status</h3>
+                        <div class="stat">Active</div>
+                        <p class="card-desc">Room B-205, Bed 3</p>
+                    </div>
+                </div>
+                
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Profile" class="profile-img">
+                        <h2 class="profile-name">Aryan Sharma</h2>
+                        <p class="profile-id">ST20230025</p>
+                        <p style="color: var(--gray);">Your Son/Daughter</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h2 class="section-title">Student Information</h2>
+                        
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Enrollment Number</div>
+                                <div class="info-value">ST20230025</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Course</div>
+                                <div class="info-value">B.Tech Computer Science</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Year/Semester</div>
+                                <div class="info-value">3rd Year / 5th Semester</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Division</div>
+                                <div class="info-value">CS-A</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Admission Date</div>
+                                <div class="info-value">1 Aug 2020</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Expected Graduation</div>
+                                <div class="info-value">May 2024</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-item">
+                                <div class="info-label">Student Phone</div>
+                                <div class="info-value">+91 9876543210</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Student Email</div>
+                                <div class="info-value">john.smith@example.com</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h2 class="section-title">Recent Notifications</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Notification</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2 Dec 2023</td>
+                                <td>Semester exam fees due by 15th December</td>
+                                <td>Fee Reminder</td>
+                                <td><span class="status-pending">Action Required</span></td>
+                            </tr>
+                            <tr>
+                                <td>1 Dec 2023</td>
+                                <td>Internal exam results published</td>
+                                <td>Academic</td>
+                                <td><span class="status-paid">Viewed</span></td>
+                            </tr>
+                            <tr>
+                                <td>28 Nov 2023</td>
+                                <td>Parent-teacher meeting scheduled for 10th Dec</td>
+                                <td>Meeting</td>
+                                <td><span class="status-pending">Upcoming</span></td>
+                            </tr>
+                            <tr>
+                                <td>25 Nov 2023</td>
+                                <td>Hostel fee payment confirmation</td>
+                                <td>Payment</td>
+                                <td><span class="status-paid">Confirmed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Student Results View -->
+            <div id="results-view" class="view">
+                <h2 class="section-title">Student Results</h2>
+                
+                <div class="result-summary">
+                    <div class="card success">
+                        <h3>Overall CGPA</h3>
+                        <div class="stat">8.72</div>
+                        <p class="card-desc">Out of 10.0</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Current Semester</h3>
+                        <div class="stat">8.9</div>
+                        <p class="card-desc">5th Semester SGPA</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Class Rank</h3>
+                        <div class="stat">5th</div>
+                        <p class="card-desc">Out of 42 students</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Attendance</h3>
+                        <div class="stat">87%</div>
+                        <p class="card-desc">Above minimum requirement</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Semester-wise Results</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Semester</th>
+                                <th>Year</th>
+                                <th>SGPA</th>
+                                <th>CGPA</th>
+                                <th>Result Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5th Semester</td>
+                                <td>2023-24</td>
+                                <td>8.9</td>
+                                <td>8.72</td>
+                                <td><span class="status-paid">Pass</span></td>
+                                <td>
+                                    <button class="action-btn btn-download">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4th Semester</td>
+                                <td>2022-23</td>
+                                <td>8.6</td>
+                                <td>8.65</td>
+                                <td><span class="status-paid">Pass</span></td>
+                                <td>
+                                    <button class="action-btn btn-download">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3rd Semester</td>
+                                <td>2022-23</td>
+                                <td>8.4</td>
+                                <td>8.63</td>
+                                <td><span class="status-paid">Pass</span></td>
+                                <td>
+                                    <button class="action-btn btn-download">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2nd Semester</td>
+                                <td>2021-22</td>
+                                <td>8.8</td>
+                                <td>8.75</td>
+                                <td><span class="status-paid">Pass</span></td>
+                                <td>
+                                    <button class="action-btn btn-download">Download</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1st Semester</td>
+                                <td>2021-22</td>
+                                <td>8.7</td>
+                                <td>8.7</td>
+                                <td><span class="status-paid">Pass</span></td>
+                                <td>
+                                    <button class="action-btn btn-download">Download</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Subject-wise Performance (Current Semester)</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Subject Code</th>
+                                <th>Subject Name</th>
+                                <th>Internal Marks</th>
+                                <th>External Marks</th>
+                                <th>Total Marks</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CS501</td>
+                                <td>Advanced Data Structures</td>
+                                <td>48/50</td>
+                                <td>82/100</td>
+                                <td>130/150</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>CS502</td>
+                                <td>Database Management Systems</td>
+                                <td>46/50</td>
+                                <td>78/100</td>
+                                <td>124/150</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>CS503</td>
+                                <td>Software Engineering</td>
+                                <td>49/50</td>
+                                <td>85/100</td>
+                                <td>134/150</td>
+                                <td>A+</td>
+                            </tr>
+                            <tr>
+                                <td>CS504</td>
+                                <td>Computer Networks</td>
+                                <td>45/50</td>
+                                <td>76/100</td>
+                                <td>121/150</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>CS505</td>
+                                <td>Operating Systems</td>
+                                <td>47/50</td>
+                                <td>80/100</td>
+                                <td>127/150</td>
+                                <td>A</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Attendance View -->
+            <div id="attendance-view" class="view">
+                <h2 class="section-title">Attendance Record</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Overall Attendance</h3>
+                        <div class="stat">87%</div>
+                        <p class="card-desc">125 of 144 classes attended</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>This Month</h3>
+                        <div class="stat">92%</div>
+                        <p class="card-desc">23 of 25 classes attended</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Lowest Subject</h3>
+                        <div class="stat">78%</div>
+                        <p class="card-desc">Operating Systems</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Highest Subject</h3>
+                        <div class="stat">96%</div>
+                        <p class="card-desc">Software Engineering</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">November 2023 Attendance</h3>
+                    
+                    <div class="attendance-calendar">
+                        <div class="calendar-day day-header">Sun</div>
+                        <div class="calendar-day day-header">Mon</div>
+                        <div class="calendar-day day-header">Tue</div>
+                        <div class="calendar-day day-header">Wed</div>
+                        <div class="calendar-day day-header">Thu</div>
+                        <div class="calendar-day day-header">Fri</div>
+                        <div class="calendar-day day-header">Sat</div>
+                        
+                        <!-- November 2023 calendar -->
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day present">1</div>
+                        <div class="calendar-day present">2</div>
+                        <div class="calendar-day present">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day present">7</div>
+                        <div class="calendar-day present">8</div>
+                        <div class="calendar-day present">9</div>
+                        <div class="calendar-day absent">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day present">14</div>
+                        <div class="calendar-day present">15</div>
+                        <div class="calendar-day present">16</div>
+                        <div class="calendar-day present">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day present">21</div>
+                        <div class="calendar-day present">22</div>
+                        <div class="calendar-day absent">23</div>
+                        <div class="calendar-day present">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day present">28</div>
+                        <div class="calendar-day present">29</div>
+                        <div class="calendar-day present">30</div>
+                        <div class="calendar-day future">1</div>
+                        <div class="calendar-day future">2</div>
+                        <div class="calendar-day future">3</div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background-color: #d1e7dd; border-radius: 3px;"></div>
+                            <span>Present</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background-color: #f8d7da; border-radius: 3px;"></div>
+                            <span>Absent</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background-color: #e9ecef; border-radius: 3px;"></div>
+                            <span>Holiday/Future</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Subject-wise Attendance</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Total Classes</th>
+                                <th>Attended</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Advanced Data Structures</td>
+                                <td>28</td>
+                                <td>26</td>
+                                <td>92.9%</td>
+                                <td><span class="status-paid">Good</span></td>
+                            </tr>
+                            <tr>
+                                <td>Database Management Systems</td>
+                                <td>30</td>
+                                <td>27</td>
+                                <td>90.0%</td>
+                                <td><span class="status-paid">Good</span></td>
+                            </tr>
+                            <tr>
+                                <td>Software Engineering</td>
+                                <td>25</td>
+                                <td>24</td>
+                                <td>96.0%</td>
+                                <td><span class="status-paid">Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td>Computer Networks</td>
+                                <td>28</td>
+                                <td>24</td>
+                                <td>85.7%</td>
+                                <td><span class="status-pending">Average</span></td>
+                            </tr>
+                            <tr>
+                                <td>Operating Systems</td>
+                                <td>32</td>
+                                <td>25</td>
+                                <td>78.1%</td>
+                                <td><span class="status-overdue">Below Average</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Fees & Payments View -->
+            <div id="fees-view" class="view">
+                <h2 class="section-title">Fees & Payments</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card success">
+                        <h3>Academic Fee</h3>
+                        <div class="stat">Paid</div>
+                        <p class="card-desc">₹52,000 - Current Semester</p>
+                    </div>
+                    
+                    <div class="card warning">
+                        <h3>Exam Fee</h3>
+                        <div class="stat">Due</div>
+                        <p class="card-desc">₹2,500 - Due by 15 Dec</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Hostel Fee</h3>
+                        <div class="stat">Paid</div>
+                        <p class="card-desc">₹15,000 - Current Semester</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Total Paid</h3>
+                        <div class="stat">₹2.1L</div>
+                        <p class="card-desc">This academic year</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Fee Payment History</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Fee Type</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                                <th>Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15 Jun 2023</td>
+                                <td>Academic Fee - 5th Semester</td>
+                                <td>₹52,000</td>
+                                <td>Online Banking</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                            <tr>
+                                <td>10 Jun 2023</td>
+                                <td>Hostel Fee - 5th Semester</td>
+                                <td>₹15,000</td>
+                                <td>UPI</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                            <tr>
+                                <td>15 Dec 2022</td>
+                                <td>Academic Fee - 4th Semester</td>
+                                <td>₹52,000</td>
+                                <td>Credit Card</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                            <tr>
+                                <td>10 Dec 2022</td>
+                                <td>Hostel Fee - 4th Semester</td>
+                                <td>₹15,000</td>
+                                <td>Online Banking</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Pending Payments</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Fee Type</th>
+                                <th>Amount</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Exam Fee - Final Semester</td>
+                                <td>₹2,500</td>
+                                <td>15 Dec 2023</td>
+                                <td><span class="status-pending">Pending</span></td>
+                                <td><button class="action-btn btn-pay">Pay Now</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Hostel Information View -->
+            <div id="hostel-view" class="view">
+                <h2 class="section-title">Hostel Information</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>Hostel Block</h3>
+                        <div class="stat">Block B</div>
+                        <p class="card-desc">Boys Hostel</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Room Number</h3>
+                        <div class="stat">B-205</div>
+                        <p class="card-desc">2nd Floor</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Bed Number</h3>
+                        <div class="stat">3</div>
+                        <p class="card-desc">Shared room</p>
+                    </div>
+                    
+                    <div class="card success">
+                        <h3>Fee Status</h3>
+                        <div class="stat">Paid</div>
+                        <p class="card-desc">Valid till May 2024</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Hostel Fee Overview</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Semester</th>
+                                <th>Amount</th>
+                                <th>Payment Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5th Semester</td>
+                                <td>₹15,000</td>
+                                <td>10 Jun 2023</td>
+                                <td>15 Jun 2023</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                            <tr>
+                                <td>4th Semester</td>
+                                <td>₹15,000</td>
+                                <td>10 Dec 2022</td>
+                                <td>15 Dec 2022</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                            <tr>
+                                <td>3rd Semester</td>
+                                <td>₹15,000</td>
+                                <td>08 Jun 2022</td>
+                                <td>15 Jun 2022</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                            <tr>
+                                <td>2nd Semester</td>
+                                <td>₹15,000</td>
+                                <td>12 Dec 2021</td>
+                                <td>15 Dec 2021</td>
+                                <td><span class="status-paid">Paid</span></td>
+                                <td><button class="action-btn btn-download">Download</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Room Details & Facilities</h3>
+                    <div class="info-group">
+                        <div class="info-item">
+                            <div class="info-label">Room Type</div>
+                            <div class="info-value">Shared (4 students)</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-label">Floor</div>
+                            <div class="info-value">2nd Floor</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-item">
+                            <div class="info-label">Warden Contact</div>
+                            <div class="info-value">Mr. Sharma - 9876500000</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-label">Emergency Contact</div>
+                            <div class="info-value">9876500001</div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin: 1.5rem 0 1rem;">Available Facilities:</h4>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>24/7 Electricity and Water Supply</li>
+                        <li>Wi-Fi Internet Connection</li>
+                        <li>Common Study Room</li>
+                        <li>Mess Facility (3 meals/day)</li>
+                        <li>Laundry Service</li>
+                        <li>Recreation Room with TV</li>
+                        <li>Medical Facility</li>
+                        <li>24/7 Security</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Timetable View -->
+            <div id="timetable-view" class="view">
+                <h2 class="section-title">Student Timetable</h2>
+                
+                <div class="form-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>9:00 - 10:00</td>
+                                <td>Advanced Data Structures<br>Dr. Rajesh Kumar</td>
+                                <td>Operating Systems<br>Dr. Priya Sharma</td>
+                                <td>Computer Networks<br>Prof. Amit Patel</td>
+                                <td>Advanced Data Structures<br>Dr. Rajesh Kumar</td>
+                                <td>Software Engineering<br>Dr. Sunita Singh</td>
+                            </tr>
+                            <tr>
+                                <td>10:00 - 11:00</td>
+                                <td>Database Management<br>Prof. Vikram Gupta</td>
+                                <td>Computer Networks<br>Prof. Amit Patel</td>
+                                <td>Software Engineering<br>Dr. Sunita Singh</td>
+                                <td>Database Management<br>Prof. Vikram Gupta</td>
+                                <td>Operating Systems<br>Dr. Priya Sharma</td>
+                            </tr>
+                            <tr>
+                                <td>11:15 - 12:15</td>
+                                <td>Software Engineering<br>Dr. Sunita Singh</td>
+                                <td>Advanced Data Structures<br>Dr. Rajesh Kumar</td>
+                                <td>Operating Systems<br>Dr. Priya Sharma</td>
+                                <td>Computer Networks<br>Prof. Amit Patel</td>
+                                <td>Database Management<br>Prof. Vikram Gupta</td>
+                            </tr>
+                            <tr>
+                                <td>12:15 - 1:15</td>
+                                <td>Lunch Break</td>
+                                <td>Lunch Break</td>
+                                <td>Lunch Break</td>
+                                <td>Lunch Break</td>
+                                <td>Lunch Break</td>
+                            </tr>
+                            <tr>
+                                <td>1:15 - 2:15</td>
+                                <td>DBMS Lab<br>Prof. Vikram Gupta</td>
+                                <td>Networks Lab<br>Prof. Amit Patel</td>
+                                <td>Software Lab<br>Dr. Sunita Singh</td>
+                                <td>OS Lab<br>Dr. Priya Sharma</td>
+                                <td>Project Work<br>Dr. Rajesh Kumar</td>
+                            </tr>
+                            <tr>
+                                <td>2:15 - 3:15</td>
+                                <td>DBMS Lab<br>Prof. Vikram Gupta</td>
+                                <td>Networks Lab<br>Prof. Amit Patel</td>
+                                <td>Software Lab<br>Dr. Sunita Singh</td>
+                                <td>OS Lab<br>Dr. Priya Sharma</td>
+                                <td>Project Work<br>Dr. Rajesh Kumar</td>
+                            </tr>
+                            <tr>
+                                <td>3:15 - 4:15</td>
+                                <td>Library</td>
+                                <td>Sports/Extra-curricular</td>
+                                <td>Library</td>
+                                <td>Sports/Extra-curricular</td>
+                                <td>Library</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-container">
+                    <h3 class="form-title">Faculty Contact Information</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Faculty Name</th>
+                                <th>Subject</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Office Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dr. Sahil Gupta</td>
+                                <td>Advanced Data Structures</td>
+                                <td>sahil.gupta@college.edu</td>
+                                <td>9876543201</td>
+                                <td>Mon-Fri, 2:00-3:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Prof. Aarav Sharma</td>
+                                <td>Database Management</td>
+                                <td>aarav.sharma@college.edu</td>
+                                <td>9876543202</td>
+                                <td>Tue-Thu, 11:00-12:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Dr. Kavya Singh</td>
+                                <td>Software Engineering</td>
+                                <td>kavya.singh@college.edu</td>
+                                <td>9876543203</td>
+                                <td>Mon-Wed, 3:00-4:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Prof. Amit Patel</td>
+                                <td>Computer Networks</td>
+                                <td>amit.patel@college.edu</td>
+                                <td>9876543204</td>
+                                <td>Tue-Fri, 1:00-2:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Dr. Priya Sharma</td>
+                                <td>Operating Systems</td>
+                                <td>priya.sharma@college.edu</td>
+                                <td>9876543205</td>
+                                <td>Mon-Thu, 12:00-1:00 PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        const views = document.querySelectorAll('.view');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const targetView = this.getAttribute('data-view');
+                if(targetView) {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    showView(targetView);
+                }
+            });
+        });
+
+        function showView(viewId) {
+            views.forEach(view => view.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            
+            // Update page title based on current view
+            const viewTitle = document.querySelector(`[data-view="${viewId}"] .nav-text`);
+            if (viewTitle) {
+                document.querySelector('.header h1').textContent = viewTitle.textContent;
+            }
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info', duration = 4000) {
+            const container = document.getElementById('toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            // Get appropriate icon based on type
+            let icon = '';
+            switch(type) {
+                case 'success':
+                    icon = '<i class="fas fa-check-circle"></i>';
+                    break;
+                case 'error':
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                    break;
+                case 'warning':
+                    icon = '<i class="fas fa-exclamation-triangle"></i>';
+                    break;
+                default:
+                    icon = '<i class="fas fa-info-circle"></i>';
+            }
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <span class="toast-message">${message}</span>
+                <button class="toast-close" onclick="removeToast(this.parentElement)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add toast to container
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                removeToast(toast);
+            }, duration);
+        }
+
+        function removeToast(toast) {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.parentElement.removeChild(toast);
+                }
+            }, 400);
+        }
+
+        function logout() {
+            // Clear any stored session data
+            localStorage.clear();
+            sessionStorage.clear();
+            showToast('Logged out successfully!', 'success', 2000);
+            // Redirect after showing toast
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Action button handlers
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-download')) {
+                alert('Downloading document...');
+            } else if (e.target.classList.contains('btn-pay')) {
+                alert('Redirecting to payment gateway...');
+            }
+        });
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            showView('dashboard-view');
+        });
+
+        // Simulate real-time updates for attendance and fees
+        function updateStats() {
+            // You can add real-time updates here
+            console.log('Updating stats...');
+        }
+
+        // Update stats every 60 seconds
+        setInterval(updateStats, 60000);
+    </script>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+</body>
+</html>
