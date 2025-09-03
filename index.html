@@ -2170,9 +2170,80 @@
             }
         }
 
+        /* ERP System Label Button */
+        .erp-label {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
+            border-radius: var(--radius-md);
+            font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+            font-weight: 600;
+            box-shadow: 0 4px 15px var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: default;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .erp-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-dark);
+        }
+
+        .erp-label .icon {
+            font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+        }
+
+        /* Adjust back button position when ERP label is present */
+        .back-btn {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        /* Mobile adjustments for ERP label */
+        @media (max-width: 768px) {
+            .erp-label {
+                top: 10px;
+                left: 10px;
+                padding: 0.4rem 0.6rem;
+                font-size: 0.7rem;
+            }
+
+            .erp-label .icon {
+                font-size: 0.8rem;
+            }
+
+            .back-btn {
+                top: 60px;
+                left: 15px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+                min-height: 44px;
+                z-index: 1000;
+            }
+        }
+
         /* Print Styles */
         @media print {
-            .back-btn, .demo-notice, .login-btn {
+            .back-btn, .demo-notice, .login-btn, .erp-label {
                 display: none;
             }
             
@@ -2184,6 +2255,12 @@
     </style>
 </head>
 <body>
+    <!-- ERP System Label -->
+    <div class="erp-label">
+        <i class="fas fa-graduation-cap icon"></i>
+        <span>ERP System Prototype</span>
+    </div>
+
     <!-- Toast Notification Container -->
     <div class="toast-container" id="toast-container"></div>
 
