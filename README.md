@@ -1,9 +1,7 @@
 # 🎓 CodeCortex ERP System
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-brightgreen?logo=github&logoColor=white)](https://aryanjha05.github.io/SIH/)
-[![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue?logo=googlechrome&logoColor=white)](https://web.dev/progressive-web-apps/)
 [![Responsive Design](https://img.shields.io/badge/Responsive-Design-orange?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > **A comprehensive Educational Resource Planning (ERP) system designed for modern educational institutions, providing seamless management across multiple user roles.**
 
@@ -23,13 +21,7 @@
 - **Interactive Elements**: Hover effects, animations, and smooth transitions
 - **Accessibility**: Touch-friendly interactions and screen reader support
 
-### 🚀 **Progressive Web App (PWA)**
-- **PWA Ready**: Manifest file configured for app-like experience
-- **Responsive Icons**: Optimized logos for different screen sizes
-- **Theme Colors**: Consistent branding across platforms
-
 ### 📱 **Responsive Design**
-- **Mobile First**: Optimized for mobile devices
 - **Adaptive Grid**: Dynamic layout adjustment based on screen size
 - **Touch Optimized**: Enhanced touch interactions for mobile users
 - **Cross-Platform**: Works seamlessly across all devices and browsers
@@ -37,13 +29,13 @@
 ## 🖼️ Screenshots
 
 ### Landing Page
-![Landing Page](https://via.placeholder.com/800x400/C4A484/FFFFFF?text=CodeCortex+ERP+Landing+Page)
+![Landing Page](https://github.com/AryanJha05/SIH/blob/main/landingPage.png)
 
 ### Role Selection
-![Role Selection](https://via.placeholder.com/800x400/fbc6b6/FFFFFF?text=Role+Selection+Cards)
+![Role Selection](https://github.com/AryanJha05/SIH/blob/main/LoginPage.png)
 
 ### Dashboard Example
-![Dashboard](https://via.placeholder.com/800x400/FAF0E6/5C4033?text=User+Dashboard)
+![Dashboard](https://github.com/AryanJha05/SIH/blob/main/Dashboard.png)
 
 ## 🚀 Quick Start
 
@@ -169,12 +161,6 @@ SIH/
 - **JavaScript**: Vanilla JS for interactivity
 - **Font Awesome**: Icons and visual elements
 
-### Progressive Web App
-- **Web App Manifest**: Configured for app-like experience
-- **Responsive Design**: Optimized for all screen sizes
-- **Touch Events**: Enhanced mobile interactions
-- **Icon Support**: Multiple icon sizes for different devices
-
 ### Development Tools
 - **Git**: Version control
 - **GitHub**: Code hosting and collaboration
@@ -226,16 +212,6 @@ We welcome contributions! Please follow these steps:
 - Ensure accessibility compliance
 - Update documentation for new features
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Aryan Jha**
-- GitHub: [@AryanJha05](https://github.com/AryanJha05)
-- Email: [contact@aryanjha.dev](mailto:contact@aryanjha.dev)
-
 ## 🙏 Acknowledgments
 
 - **Font Awesome** for providing excellent icons
@@ -274,7 +250,5 @@ If you have any questions or need support:
 <div align="center">
 
 **⭐ Star this repository if you find it helpful! ⭐**
-
-Made with ❤️ by [Aryan Jha](https://github.com/AryanJha05)
 
 </div>
