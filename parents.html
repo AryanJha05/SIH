@@ -931,178 +931,266 @@
 
             <!-- Student Dashboard View -->
             <div id="dashboard-view" class="view active">
+                <!-- Overview Statistics Grid -->
                 <div class="dashboard-grid">
-                    <div class="card">
-                        <h3>Overall Attendance</h3>
-                        <div class="stat">87%</div>
-                        <p class="card-desc">125 of 144 classes attended</p>
+                    <div class="enhanced-stat-card attendance">
+                        <div class="stat-header">
+                            <h3>Overall Attendance</h3>
+                            <div class="stat-icon">📊</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">87%</div>
+                            <div class="stat-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 87%"></div>
+                                </div>
+                            </div>
+                            <p class="stat-description">125 of 144 classes attended</p>
+                        </div>
                     </div>
                     
-                    <div class="card success">
-                        <h3>Current CGPA</h3>
-                        <div class="stat">8.72</div>
-                        <p class="card-desc">Current semester: 8.9</p>
+                    <div class="enhanced-stat-card academic">
+                        <div class="stat-header">
+                            <h3>Current CGPA</h3>
+                            <div class="stat-icon">🎓</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">8.72</div>
+                            <div class="stat-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 87.2%"></div>
+                                </div>
+                            </div>
+                            <p class="stat-description">Current semester: 8.9</p>
+                        </div>
                     </div>
                     
-                    <div class="card warning">
-                        <h3>Fee Status</h3>
-                        <div class="stat">Paid</div>
-                        <p class="card-desc">Next due: 15 Dec 2023</p>
+                    <div class="enhanced-stat-card financial">
+                        <div class="stat-header">
+                            <h3>Fee Status</h3>
+                            <div class="stat-icon">💳</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">Paid</div>
+                            <div class="status-indicator paid"></div>
+                            <p class="stat-description">Next due: 15 Dec 2023</p>
+                        </div>
                     </div>
                     
-                    <div class="card">
-                        <h3>Hostel Status</h3>
-                        <div class="stat">Active</div>
-                        <p class="card-desc">Room B-205, Bed 3</p>
+                    <div class="enhanced-stat-card hostel">
+                        <div class="stat-header">
+                            <h3>Hostel Status</h3>
+                            <div class="stat-icon">🏠</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">Active</div>
+                            <div class="status-indicator active"></div>
+                            <p class="stat-description">Room B-205, Bed 3</p>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="profile-container">
-                    <div class="profile-card">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Profile" class="profile-img">
-                        <h2 class="profile-name">Aryan Sharma</h2>
-                        <p class="profile-id">ST20230025</p>
-                        <p style="color: var(--gray);">Your Son/Daughter</p>
+                <!-- Student Information Grid -->
+                <div class="section-grid">
+                    <div class="grid-section">
+                        <div class="section-header">
+                            <h2 class="section-title">👤 Student Profile</h2>
+                        </div>
+                        <div class="profile-overview-grid">
+                            <div class="profile-card-enhanced">
+                                <div class="profile-image-container">
+                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Profile" class="profile-img">
+                                    <div class="status-badge">Active</div>
+                                </div>
+                                <div class="profile-details">
+                                    <h3 class="profile-name">Aryan Sharma</h3>
+                                    <p class="profile-id">ST20230025</p>
+                                    <p class="profile-relation">Your Son/Daughter</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-grid">
+                                <div class="info-card-enhanced">
+                                    <div class="info-item">
+                                        <div class="info-label">📚 Course</div>
+                                        <div class="info-value">B.Tech Computer Science</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">📅 Year/Semester</div>
+                                        <div class="info-value">3rd Year / 5th Semester</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-card-enhanced">
+                                    <div class="info-item">
+                                        <div class="info-label">🏷️ Division</div>
+                                        <div class="info-value">CS-A</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">📧 Email</div>
+                                        <div class="info-value">john.smith@example.com</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-card-enhanced">
+                                    <div class="info-item">
+                                        <div class="info-label">📞 Phone</div>
+                                        <div class="info-value">+91 9876543210</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">🎓 Expected Graduation</div>
+                                        <div class="info-value">May 2024</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="info-card">
-                        <h2 class="section-title">Student Information</h2>
-                        
-                        <div class="info-group">
-                            <div class="info-item">
-                                <div class="info-label">Enrollment Number</div>
-                                <div class="info-value">ST20230025</div>
-                            </div>
-                            
-                            <div class="info-item">
-                                <div class="info-label">Course</div>
-                                <div class="info-value">B.Tech Computer Science</div>
-                            </div>
+                    <div class="grid-section">
+                        <div class="section-header">
+                            <h2 class="section-title">🔔 Recent Notifications</h2>
+                            <div class="notification-count">4 New</div>
                         </div>
-                        
-                        <div class="info-group">
-                            <div class="info-item">
-                                <div class="info-label">Year/Semester</div>
-                                <div class="info-value">3rd Year / 5th Semester</div>
+                        <div class="notifications-grid">
+                            <div class="notification-card urgent">
+                                <div class="notification-icon">⚠️</div>
+                                <div class="notification-content">
+                                    <h4>Fee Reminder</h4>
+                                    <p>Semester exam fees due by 15th December</p>
+                                    <span class="notification-date">2 Dec 2023</span>
+                                </div>
+                                <div class="notification-status pending">Action Required</div>
                             </div>
                             
-                            <div class="info-item">
-                                <div class="info-label">Division</div>
-                                <div class="info-value">CS-A</div>
-                            </div>
-                        </div>
-                        
-                        <div class="info-group">
-                            <div class="info-item">
-                                <div class="info-label">Admission Date</div>
-                                <div class="info-value">1 Aug 2020</div>
+                            <div class="notification-card academic">
+                                <div class="notification-icon">📊</div>
+                                <div class="notification-content">
+                                    <h4>Academic Update</h4>
+                                    <p>Internal exam results published</p>
+                                    <span class="notification-date">1 Dec 2023</span>
+                                </div>
+                                <div class="notification-status viewed">Viewed</div>
                             </div>
                             
-                            <div class="info-item">
-                                <div class="info-label">Expected Graduation</div>
-                                <div class="info-value">May 2024</div>
-                            </div>
-                        </div>
-                        
-                        <div class="info-group">
-                            <div class="info-item">
-                                <div class="info-label">Student Phone</div>
-                                <div class="info-value">+91 9876543210</div>
+                            <div class="notification-card meeting">
+                                <div class="notification-icon">🤝</div>
+                                <div class="notification-content">
+                                    <h4>Meeting Scheduled</h4>
+                                    <p>Parent-teacher meeting scheduled for 10th Dec</p>
+                                    <span class="notification-date">28 Nov 2023</span>
+                                </div>
+                                <div class="notification-status upcoming">Upcoming</div>
                             </div>
                             
-                            <div class="info-item">
-                                <div class="info-label">Student Email</div>
-                                <div class="info-value">john.smith@example.com</div>
+                            <div class="notification-card payment">
+                                <div class="notification-icon">💰</div>
+                                <div class="notification-content">
+                                    <h4>Payment Confirmed</h4>
+                                    <p>Hostel fee payment confirmation</p>
+                                    <span class="notification-date">25 Nov 2023</span>
+                                </div>
+                                <div class="notification-status confirmed">Confirmed</div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-container">
-                    <h2 class="section-title">Recent Notifications</h2>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Notification</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2 Dec 2023</td>
-                                <td>Semester exam fees due by 15th December</td>
-                                <td>Fee Reminder</td>
-                                <td><span class="status-pending">Action Required</span></td>
-                            </tr>
-                            <tr>
-                                <td>1 Dec 2023</td>
-                                <td>Internal exam results published</td>
-                                <td>Academic</td>
-                                <td><span class="status-paid">Viewed</span></td>
-                            </tr>
-                            <tr>
-                                <td>28 Nov 2023</td>
-                                <td>Parent-teacher meeting scheduled for 10th Dec</td>
-                                <td>Meeting</td>
-                                <td><span class="status-pending">Upcoming</span></td>
-                            </tr>
-                            <tr>
-                                <td>25 Nov 2023</td>
-                                <td>Hostel fee payment confirmation</td>
-                                <td>Payment</td>
-                                <td><span class="status-paid">Confirmed</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
 
             <!-- Student Results View -->
             <div id="results-view" class="view">
-                <h2 class="section-title">Student Results</h2>
+                <div class="section-header">
+                    <h2 class="section-title">📊 Student Academic Results</h2>
+                </div>
                 
-                <div class="result-summary">
-                    <div class="card success">
-                        <h3>Overall CGPA</h3>
-                        <div class="stat">8.72</div>
-                        <p class="card-desc">Out of 10.0</p>
+                <!-- Performance Overview Grid -->
+                <div class="results-overview-grid">
+                    <div class="performance-card overall">
+                        <div class="performance-header">
+                            <h3>Overall CGPA</h3>
+                            <div class="performance-icon">🎯</div>
+                        </div>
+                        <div class="performance-content">
+                            <div class="performance-score">8.72</div>
+                            <div class="performance-scale">Out of 10.0</div>
+                            <div class="performance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 87.2%"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="card">
-                        <h3>Current Semester</h3>
-                        <div class="stat">8.9</div>
-                        <p class="card-desc">5th Semester SGPA</p>
+                    <div class="performance-card current">
+                        <div class="performance-header">
+                            <h3>Current Semester</h3>
+                            <div class="performance-icon">📈</div>
+                        </div>
+                        <div class="performance-content">
+                            <div class="performance-score">8.9</div>
+                            <div class="performance-scale">5th Semester SGPA</div>
+                            <div class="performance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 89%"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="card success">
-                        <h3>Class Rank</h3>
-                        <div class="stat">5th</div>
-                        <p class="card-desc">Out of 42 students</p>
+                    <div class="performance-card rank">
+                        <div class="performance-header">
+                            <h3>Class Rank</h3>
+                            <div class="performance-icon">🏆</div>
+                        </div>
+                        <div class="performance-content">
+                            <div class="performance-score">5th</div>
+                            <div class="performance-scale">Out of 42 students</div>
+                            <div class="rank-indicator">
+                                <div class="rank-badge">Top 12%</div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="card">
-                        <h3>Attendance</h3>
-                        <div class="stat">87%</div>
-                        <p class="card-desc">Above minimum requirement</p>
+                    <div class="performance-card attendance">
+                        <div class="performance-header">
+                            <h3>Attendance</h3>
+                            <div class="performance-icon">✅</div>
+                        </div>
+                        <div class="performance-content">
+                            <div class="performance-score">87%</div>
+                            <div class="performance-scale">Above minimum requirement</div>
+                            <div class="performance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 87%"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-container">
-                    <h3 class="form-title">Semester-wise Results</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Semester</th>
-                                <th>Year</th>
-                                <th>SGPA</th>
-                                <th>CGPA</th>
-                                <th>Result Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <!-- Semester Results Grid -->
+                <div class="results-table-container">
+                    <div class="section-header">
+                        <h3 class="section-title">📋 Semester-wise Results</h3>
+                        <div class="results-actions">
+                            <button class="action-btn secondary">Download Transcript</button>
+                            <button class="action-btn primary">Request Duplicate</button>
+                        </div>
+                    </div>
+                    
+                    <div class="enhanced-table-container">
+                        <table class="enhanced-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Semester</th>
+                                    <th>Academic Year</th>
+                                    <th>SGPA</th>
+                                    <th>CGPA</th>
+                                    <th>Result Status</th>
+                                    <th>Grade</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             <tr>
                                 <td>5th Semester</td>
                                 <td>2023-24</td>
@@ -1860,6 +1948,7 @@
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
             showView('dashboard-view');
+            showToast('Welcome to Parent Portal!', 'success', 3000);
         });
 
         // Simulate real-time updates for attendance and fees
@@ -1871,6 +1960,603 @@
         // Update stats every 60 seconds
         setInterval(updateStats, 60000);
     </script>
+
+    <style>
+        /* Enhanced Dashboard Grid Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            padding: 0;
+        }
+
+        .enhanced-stat-card {
+            background: linear-gradient(135deg, var(--white) 0%, #f8f9ff 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enhanced-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .enhanced-stat-card.attendance::before {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+
+        .enhanced-stat-card.academic::before {
+            background: linear-gradient(90deg, #10b981, #06d6a0);
+        }
+
+        .enhanced-stat-card.financial::before {
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+        }
+
+        .enhanced-stat-card.hostel::before {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        }
+
+        .enhanced-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-header h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .stat-content {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-progress {
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .stat-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0.5rem auto;
+        }
+
+        .status-indicator.paid, .status-indicator.active {
+            background: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .status-indicator.pending {
+            background: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Section Grid Layout */
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification-count {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Profile Overview Grid */
+        .profile-overview-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .profile-card-enhanced {
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #10b981;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .profile-details {
+            text-align: center;
+        }
+
+        .profile-name {
+            margin: 0.5rem 0 0.25rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .profile-id {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .profile-relation {
+            margin: 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-card-enhanced {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--dark);
+            text-align: right;
+        }
+
+        /* Notifications Grid */
+        .notifications-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .notification-card {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-card.urgent {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
+        }
+
+        .notification-card.academic {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #f0fdf4 0%, #fff 100%);
+        }
+
+        .notification-card.meeting {
+            border-left-color: #8b5cf6;
+            background: linear-gradient(135deg, #faf5ff 0%, #fff 100%);
+        }
+
+        .notification-card.payment {
+            border-left-color: #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #fff 100%);
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+            align-self: flex-start;
+        }
+
+        .notification-content h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .notification-content p {
+            margin: 0 0 0.5rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .notification-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .notification-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            align-self: flex-start;
+            white-space: nowrap;
+        }
+
+        .notification-status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .notification-status.viewed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .notification-status.upcoming {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .notification-status.confirmed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        /* Results Page Enhancements */
+        .results-overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .performance-card {
+            background: linear-gradient(135deg, var(--white) 0%, #f8f9ff 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .performance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .performance-card.overall::before {
+            background: linear-gradient(90deg, #10b981, #06d6a0);
+        }
+
+        .performance-card.current::before {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+
+        .performance-card.rank::before {
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+        }
+
+        .performance-card.attendance::before {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        }
+
+        .performance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .performance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .performance-header h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .performance-icon {
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .performance-content {
+            text-align: center;
+        }
+
+        .performance-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .performance-scale {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .performance-progress {
+            margin: 1rem 0;
+        }
+
+        .rank-indicator {
+            margin: 1rem 0;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .results-table-container {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: #f1f5f9;
+            color: var(--dark);
+            border: 1px solid #e2e8f0;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .enhanced-table-container {
+            margin-top: 1.5rem;
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .enhanced-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .enhanced-data-table th {
+            background: #f8fafc;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .enhanced-data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--gray);
+        }
+
+        .enhanced-data-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-grid,
+            .results-overview-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .section-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .profile-overview-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .notification-card {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .results-actions {
+                flex-direction: column;
+            }
+            
+            .enhanced-table-container {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .enhanced-stat-card,
+            .performance-card {
+                padding: 1.5rem;
+            }
+            
+            .stat-number,
+            .performance-score {
+                font-size: 2rem;
+            }
+            
+            .grid-section,
+            .results-table-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 
     <!-- Toast Notification Container -->
     <div id="toast-container"></div>

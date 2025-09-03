@@ -224,6 +224,396 @@
             font-size: 0.9rem;
         }
 
+        /* Enhanced Faculty Dashboard Styles */
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 0.75rem;
+        }
+
+        .card-header i {
+            font-size: 1.25rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--peach-light), rgba(208, 129, 106, 0.2));
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .student-breakdown, .workload-indicator, .next-class {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .view-subjects-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-subjects-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+        }
+
+        /* Teaching Grid */
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .schedule-section, .quick-actions-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--dark);
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .schedule-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--peach-light), white);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item.theory {
+            border-left-color: var(--secondary);
+        }
+
+        .schedule-item.practical {
+            border-left-color: var(--success);
+        }
+
+        .schedule-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.2);
+        }
+
+        .schedule-time {
+            font-weight: bold;
+            color: var(--dark);
+            min-width: 120px;
+            font-size: 0.9rem;
+        }
+
+        .schedule-content {
+            flex: 1;
+        }
+
+        .schedule-content h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .schedule-details {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .division, .room {
+            font-size: 0.8rem;
+            color: var(--gray);
+            background: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .type {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .type.theory {
+            background: rgba(208, 129, 106, 0.2);
+            color: var(--secondary);
+        }
+
+        .type.practical {
+            background: rgba(139, 115, 85, 0.2);
+            color: var(--success);
+        }
+
+        .schedule-status {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .schedule-status.upcoming {
+            background: rgba(160, 130, 109, 0.2);
+            color: var(--warning);
+        }
+
+        .schedule-status.current {
+            background: rgba(139, 115, 85, 0.2);
+            color: var(--success);
+        }
+
+        .faculty-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .action-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, var(--peach-light), white);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(92, 64, 51, 0.2);
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.25rem;
+        }
+
+        .action-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .action-card p {
+            margin: 0 0 1rem 0;
+            color: var(--gray);
+            font-size: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+        }
+
+        /* Performance Grid */
+        .performance-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .class-performance, .recent-activities {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            border: 1px solid var(--border);
+        }
+
+        .performance-cards {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .performance-card {
+            background: linear-gradient(135deg, var(--peach-light), white);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .performance-card.excellent {
+            border-left-color: var(--success);
+        }
+
+        .performance-card.good {
+            border-left-color: var(--secondary);
+        }
+
+        .performance-card.average {
+            border-left-color: var(--warning);
+        }
+
+        .perf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .perf-header h4 {
+            margin: 0;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .avg-grade {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            background: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+        }
+
+        .perf-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .perf-stat {
+            text-align: center;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            display: block;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .faculty-activities {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item-faculty {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--peach-light), white);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .activity-item-faculty.pending {
+            border-left-color: var(--warning);
+        }
+
+        .activity-icon-faculty {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .activity-content-faculty {
+            flex: 1;
+        }
+
+        .activity-title-faculty {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .activity-desc-faculty {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time-faculty {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
         .section-title {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
@@ -255,6 +645,215 @@
 
         .data-table tr:hover {
             background-color: #f8f9fa;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Enhanced Dashboard Grid - Faculty Style */
+        .enhanced-dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .enhanced-stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enhanced-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .enhanced-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon-container.primary {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+        }
+
+        .stat-icon-container.success {
+            background: linear-gradient(135deg, var(--success), var(--primary));
+        }
+
+        .stat-icon-container.warning {
+            background: linear-gradient(135deg, var(--warning), var(--secondary));
+        }
+
+        .stat-icon-container.info {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-title {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin: 0 0 0.25rem 0;
+            font-weight: 500;
+        }
+
+        .stat-main-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-card-body {
+            margin-bottom: 1rem;
+        }
+
+        .stat-description {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin: 0 0 0.75rem 0;
+        }
+
+        .breakdown-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .breakdown-item {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(92, 64, 51, 0.1);
+            color: var(--primary);
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .trend-indicator.positive {
+            color: var(--success);
+        }
+
+        .trend-indicator.negative {
+            color: var(--danger);
+        }
+
+        /* Schedule Today Styles */
+        .schedule-today {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border-left: 4px solid var(--gray);
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item.current {
+            border-left-color: var(--success);
+            background: rgba(139, 115, 85, 0.1);
+        }
+
+        .schedule-item.upcoming {
+            border-left-color: var(--warning);
+        }
+
+        .schedule-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-time {
+            min-width: 120px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.875rem;
+        }
+
+        .schedule-details {
+            flex: 1;
+            margin-left: 1rem;
+        }
+
+        .schedule-details h4 {
+            margin: 0 0 0.25rem 0;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .schedule-details p {
+            margin: 0 0 0.5rem 0;
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .schedule-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            background: var(--gray);
+            color: white;
+        }
+
+        .schedule-badge.current {
+            background: var(--success);
+        }
+
+        .schedule-badge.upcoming {
+            background: var(--warning);
         }
 
         /* Forms */
@@ -452,15 +1051,49 @@
                 padding: 15px 10px;
             }
 
+            /* Enhanced dashboard responsive */
+            .enhanced-dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .enhanced-stat-card {
+                padding: 1rem;
+            }
+
+            .stat-icon-container {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+
+            .stat-main-value {
+                font-size: 1.5rem;
+            }
+
+            .schedule-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .schedule-time {
+                min-width: auto;
+            }
+
+            .schedule-details {
+                margin-left: 0;
+            }
+
             .data-table {
                 font-size: 0.75rem;
-                overflow-x: auto;
             }
 
             .data-table th,
             .data-table td {
-                padding: 8px 4px;
-                min-width: 80px;
+                padding: 8px 12px;
+                white-space: normal;
             }
         }
 
@@ -469,6 +1102,20 @@
             .dashboard-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
+            }
+
+            .enhanced-dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .schedule-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .schedule-details {
+                margin-left: 0;
             }
         }
 
@@ -942,130 +1589,388 @@
 
             <!-- Dashboard View -->
             <div id="dashboard-view" class="view active">
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <h3>Total Students</h3>
-                        <div class="stat">156</div>
-                        <p class="card-desc">Under my supervision</p>
+                <!-- Faculty Stats Grid -->
+                <div class="enhanced-dashboard-grid">
+                    <!-- Total Students Card -->
+                    <div class="enhanced-stat-card primary-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon-container primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="stat-title">Total Students</h3>
+                                <div class="stat-main-value">156</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <p class="stat-description">Under my supervision</p>
+                            <div class="breakdown-info">
+                                <span class="breakdown-item">CS-A: 52</span>
+                                <span class="breakdown-item">CS-B: 54</span>
+                                <span class="breakdown-item">CS-C: 50</span>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="card success">
-                        <h3>Teaching Hours</h3>
-                        <div class="stat">18</div>
-                        <p class="card-desc">Hours per week</p>
+
+                    <!-- Teaching Hours Card -->
+                    <div class="enhanced-stat-card success-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon-container success">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="stat-title">Teaching Hours</h3>
+                                <div class="stat-main-value">18</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <p class="stat-description">Hours per week</p>
+                            <div class="breakdown-info">
+                                <span class="breakdown-item">Theory: 12hrs</span>
+                                <span class="breakdown-item">Practical: 6hrs</span>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="card warning">
-                        <h3>Subjects</h3>
-                        <div class="stat">4</div>
-                        <p class="card-desc">Currently teaching</p>
+
+                    <!-- Active Subjects Card -->
+                    <div class="enhanced-stat-card warning-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon-container warning">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="stat-title">Active Subjects</h3>
+                                <div class="stat-main-value">3</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <p class="stat-description">Current semester</p>
+                            <div class="breakdown-info">
+                                <span class="breakdown-item">Data Structures</span>
+                                <span class="breakdown-item">Algorithms</span>
+                                <span class="breakdown-item">Software Eng.</span>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="card">
-                        <h3>Divisions</h3>
-                        <div class="stat">3</div>
-                        <p class="card-desc">CS-A, CS-B, CS-C</p>
+
+                    <!-- Pending Reviews Card -->
+                    <div class="enhanced-stat-card info-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon-container info">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="stat-title">Pending Reviews</h3>
+                                <div class="stat-main-value">12</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <p class="stat-description">Documents to review</p>
+                            <div class="trend-indicator negative">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Requires attention</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Today's Schedule -->
                 <div class="form-container">
                     <h3 class="form-title">Today's Schedule</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Subject</th>
-                                <th>Division</th>
-                                <th>Room</th>
-                                <th>Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>9:00 - 10:00 AM</td>
-                                <td>Data Structures</td>
-                                <td>CS-A (3rd Sem)</td>
-                                <td>Room 101</td>
-                                <td>Theory</td>
-                            </tr>
-                            <tr>
-                                <td>10:00 - 11:00 AM</td>
-                                <td>Algorithms</td>
-                                <td>CS-B (5th Sem)</td>
-                                <td>Room 102</td>
-                                <td>Theory</td>
-                            </tr>
-                            <tr>
-                                <td>2:00 - 3:00 PM</td>
-                                <td>Data Structures Lab</td>
-                                <td>CS-A (3rd Sem)</td>
-                                <td>Lab 1</td>
-                                <td>Practical</td>
-                            </tr>
-                            <tr>
-                                <td>3:00 - 4:00 PM</td>
-                                <td>Algorithms Lab</td>
-                                <td>CS-C (5th Sem)</td>
-                                <td>Lab 2</td>
-                                <td>Practical</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="schedule-today">
+                        <div class="schedule-item current">
+                            <div class="schedule-time">9:00 - 10:00 AM</div>
+                            <div class="schedule-details">
+                                <h4>Data Structures</h4>
+                                <p>CS-A (3rd Sem) - Room 301</p>
+                                <span class="schedule-badge current">Current Class</span>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item upcoming">
+                            <div class="schedule-time">11:00 - 12:00 PM</div>
+                            <div class="schedule-details">
+                                <h4>Algorithms</h4>
+                                <p>CS-B (3rd Sem) - Room 302</p>
+                                <span class="schedule-badge upcoming">Upcoming</span>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="schedule-time">2:00 - 5:00 PM</div>
+                            <div class="schedule-details">
+                                <h4>Data Structures Lab</h4>
+                                <p>CS-A (3rd Sem) - Lab 1</p>
+                                <span class="schedule-badge">Scheduled</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Recent Activity -->
                 <div class="form-container">
-                    <h3 class="form-title">Recent Activities</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Activity</th>
-                                <th>Class/Subject</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Today, 10:30 AM</td>
-                                <td>Attendance marked for Data Structures</td>
-                                <td>CS-A (3rd Sem)</td>
-                                <td><span class="status-submitted">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>Yesterday, 3:15 PM</td>
-                                <td>Lab assignments uploaded</td>
-                                <td>Algorithms Lab</td>
-                                <td><span class="status-submitted">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>Dec 1, 2023</td>
-                                <td>Internal exam papers submitted</td>
-                                <td>Data Structures</td>
-                                <td><span class="status-submitted">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>Nov 30, 2023</td>
-                                <td>Student document verification</td>
-                                <td>General</td>
-                                <td><span class="status-pending">Pending</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h3 class="form-title">Recent Activity</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Activity</th>
+                                    <th>Class/Subject</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Today, 10:30 AM</td>
+                                    <td>Attendance marked for Data Structures</td>
+                                    <td>CS-A (3rd Sem)</td>
+                                    <td><span class="status-submitted">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Yesterday, 3:15 PM</td>
+                                    <td>Lab assignments uploaded</td>
+                                    <td>Algorithms Lab</td>
+                                    <td><span class="status-submitted">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Dec 1, 2023</td>
+                                    <td>Internal exam papers submitted</td>
+                                    <td>Data Structures</td>
+                                    <td><span class="status-submitted">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Nov 30, 2023</td>
+                                    <td>Student document verification</td>
+                                    <td>General</td>
+                                    <td><span class="status-pending">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Attendance View -->
+            <div id="attendance-view" class="view">
+                        <h2 class="section-title">
+                            <i class="fas fa-calendar-day"></i>
+                            Today's Schedule
+                        </h2>
+                        <div class="schedule-container">
+                            <div class="schedule-item theory">
+                                <div class="schedule-time">9:00 - 10:00 AM</div>
+                                <div class="schedule-content">
+                                    <h4>Data Structures</h4>
+                                    <div class="schedule-details">
+                                        <span class="division">CS-A (3rd Sem)</span>
+                                        <span class="room">Room 101</span>
+                                        <span class="type theory">Theory</span>
+                                    </div>
+                                </div>
+                                <div class="schedule-status upcoming">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="schedule-item theory">
+                                <div class="schedule-time">10:00 - 11:00 AM</div>
+                                <div class="schedule-content">
+                                    <h4>Algorithms</h4>
+                                    <div class="schedule-details">
+                                        <span class="division">CS-B (5th Sem)</span>
+                                        <span class="room">Room 102</span>
+                                        <span class="type theory">Theory</span>
+                                    </div>
+                                </div>
+                                <div class="schedule-status upcoming">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="schedule-item practical">
+                                <div class="schedule-time">2:00 - 3:00 PM</div>
+                                <div class="schedule-content">
+                                    <h4>Data Structures Lab</h4>
+                                    <div class="schedule-details">
+                                        <span class="division">CS-A (3rd Sem)</span>
+                                        <span class="room">Lab 1</span>
+                                        <span class="type practical">Practical</span>
+                                    </div>
+                                </div>
+                                <div class="schedule-status current">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="schedule-item practical">
+                                <div class="schedule-time">3:00 - 4:00 PM</div>
+                                <div class="schedule-content">
+                                    <h4>Algorithms Lab</h4>
+                                    <div class="schedule-details">
+                                        <span class="division">CS-C (5th Sem)</span>
+                                        <span class="room">Lab 2</span>
+                                        <span class="type practical">Practical</span>
+                                    </div>
+                                </div>
+                                <div class="schedule-status upcoming">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-tasks"></i>
+                            Quick Actions
+                        </h2>
+                        <div class="faculty-actions-grid">
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <h4>Mark Attendance</h4>
+                                <p>Take attendance for current class</p>
+                                <button class="action-button">Mark Now</button>
+                            </div>
+                            
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <h4>Enter Results</h4>
+                                <p>Update student grades and results</p>
+                                <button class="action-button">Enter Marks</button>
+                            </div>
+                            
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-file-upload"></i>
+                                </div>
+                                <h4>Upload Content</h4>
+                                <p>Share study materials with students</p>
+                                <button class="action-button">Upload</button>
+                            </div>
+                            
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-calendar-plus"></i>
+                                </div>
+                                <h4>Schedule Meeting</h4>
+                                <p>Book slots for student consultations</p>
+                                <button class="action-button">Schedule</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Performance Grid -->
+                <div class="performance-grid">
+                    <div class="class-performance">
+                        <h2 class="section-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Class Performance Overview
+                        </h2>
+                        <div class="performance-cards">
+                            <div class="performance-card excellent">
+                                <div class="perf-header">
+                                    <h4>CS-A (3rd Sem)</h4>
+                                    <span class="avg-grade">A</span>
+                                </div>
+                                <div class="perf-stats">
+                                    <div class="perf-stat">
+                                        <span class="stat-label">Avg Attendance</span>
+                                        <span class="stat-value">92%</span>
+                                    </div>
+                                    <div class="perf-stat">
+                                        <span class="stat-label">Pass Rate</span>
+                                        <span class="stat-value">96%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="performance-card good">
+                                <div class="perf-header">
+                                    <h4>CS-B (5th Sem)</h4>
+                                    <span class="avg-grade">B+</span>
+                                </div>
+                                <div class="perf-stats">
+                                    <div class="perf-stat">
+                                        <span class="stat-label">Avg Attendance</span>
+                                        <span class="stat-value">88%</span>
+                                    </div>
+                                    <div class="perf-stat">
+                                        <span class="stat-label">Pass Rate</span>
+                                        <span class="stat-value">91%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="performance-card average">
+                                <div class="perf-header">
+                                    <h4>CS-C (5th Sem)</h4>
+                                    <span class="avg-grade">B</span>
+                                </div>
+                                <div class="perf-stats">
+                                    <div class="perf-stat">
+                                        <span class="stat-label">Avg Attendance</span>
+                                        <span class="stat-value">85%</span>
+                                    </div>
+                                    <div class="perf-stat">
+                                        <span class="stat-label">Pass Rate</span>
+                                        <span class="stat-value">87%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activities">
+                        <h2 class="section-title">
+                            <i class="fas fa-history"></i>
+                            Recent Activities
+                        </h2>
+                        <div class="faculty-activities">
+                            <div class="activity-item-faculty completed">
+                                <div class="activity-icon-faculty">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-content-faculty">
+                                    <div class="activity-title-faculty">Attendance Marked</div>
+                                    <div class="activity-desc-faculty">CS-A Data Structures - 52/52 present</div>
+                                    <div class="activity-time-faculty">11:30 AM - Today</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item-faculty completed">
+                                <div class="activity-icon-faculty">
+                                    <i class="fas fa-file-upload"></i>
+                                </div>
+                                <div class="activity-content-faculty">
+                                    <div class="activity-title-faculty">Material Uploaded</div>
+                                    <div class="activity-desc-faculty">Algorithm notes for CS-B uploaded</div>
+                                    <div class="activity-time-faculty">10:45 AM - Today</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item-faculty pending">
+                                <div class="activity-icon-faculty">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <div class="activity-content-faculty">
+                                    <div class="activity-title-faculty">Results Pending</div>
+                                    <div class="activity-desc-faculty">CS-C Lab assignment evaluation pending</div>
+                                    <div class="activity-time-faculty">Yesterday</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Subjects View -->
-            <div id="subjects-view" class="view">
-                <h2 class="section-title">My Subjects</h2>
-                
-                <div class="subject-card">
-                    <h3>Data Structures (CS301)</h3>
-                    <div class="subject-info">
-                        <div class="info-item">
-                            <span class="info-label">Division</span>
-                            <span class="info-value">CS-A (3rd Semester)</span>
-                        </div>
-                        <div class="info-item">
+            <!-- Attendance View -->
                             <span class="info-label">Students</span>
                             <span class="info-value">42 Students</span>
                         </div>
@@ -1248,14 +2153,15 @@
                 <h2 class="section-title">My Timetable</h2>
                 
                 <div class="form-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Monday</th>
-                                <th>Tuesday</th>
-                                <th>Wednesday</th>
-                                <th>Thursday</th>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
                                 <th>Friday</th>
                             </tr>
                         </thead>
@@ -1318,6 +2224,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -1353,8 +2260,9 @@
 
                 <div class="form-container">
                     <h3 class="form-title">Student List</h3>
-                    <table class="data-table">
-                        <thead>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
                             <tr>
                                 <th>Student ID</th>
                                 <th>Name</th>
@@ -1412,6 +2320,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -1441,17 +2350,18 @@
 
                 <div class="form-container">
                     <h3 class="form-title">Documents Pending Review</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Student ID</th>
-                                <th>Student Name</th>
-                                <th>Document Type</th>
-                                <th>Submitted Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Document Type</th>
+                                    <th>Submitted Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
                         <tbody>
                             <tr>
                                 <td>ST2023001</td>
@@ -1499,6 +2409,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -1534,13 +2445,14 @@
 
                 <div class="form-container">
                     <h3 class="form-title">Weekly Teaching Schedule</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Subject</th>
-                                <th>Division</th>
-                                <th>Theory Hours</th>
-                                <th>Practical Hours</th>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Division</th>
+                                    <th>Theory Hours</th>
+                                    <th>Practical Hours</th>
                                 <th>Total Hours</th>
                             </tr>
                         </thead>
@@ -1586,16 +2498,17 @@
 
                 <div class="form-container">
                     <h3 class="form-title">Monthly Teaching Summary</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Month</th>
-                                <th>Working Days</th>
-                                <th>Classes Taken</th>
-                                <th>Total Hours</th>
-                                <th>Leave Days</th>
-                            </tr>
-                        </thead>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Working Days</th>
+                                    <th>Classes Taken</th>
+                                    <th>Total Hours</th>
+                                    <th>Leave Days</th>
+                                </tr>
+                            </thead>
                         <tbody>
                             <tr>
                                 <td>November 2023</td>
@@ -1627,6 +2540,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

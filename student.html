@@ -135,6 +135,8 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            gap: 12px; /* Use gap for consistent spacing */
+            color: white; /* Ensure all text is white */
         }
 
         .nav-item:hover, .nav-item.active {
@@ -144,16 +146,21 @@
         }
 
         .nav-item i {
-            margin-right: 12px;
+            margin-right: 0; /* Use gap instead */
             width: 20px;
             text-align: center;
             font-size: 1.1rem;
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            color: white; /* Ensure icon is visible */
         }
 
         .nav-text {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.02em;
+            color: white; /* Ensure text is visible */
+            flex: 1;
+            white-space: nowrap;
         }
 
         /* Main Content Area */
@@ -208,10 +215,10 @@
             display: block; 
         }
 
-        /* Dashboard Grid */
+        /* Enhanced Dashboard Grid */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
@@ -224,6 +231,24 @@
             border-top: 4px solid var(--primary);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
         }
 
         .card:hover {
@@ -232,36 +257,1409 @@
             background: linear-gradient(135deg, white, #FDF8F2);
         }
 
-        .card.success { 
-            border-top-color: var(--success);
-            background: linear-gradient(135deg, white, #F0EBE0);
-        }
-        .card.warning { 
-            border-top-color: var(--warning);
-            background: linear-gradient(135deg, white, #F5E6D3);
-        }
-        .card.danger { 
-            border-top-color: var(--danger);
-            background: linear-gradient(135deg, white, #EDE0D0);
+        /* Enhanced Dashboard Grid Styles */
+        .enhanced-dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Reduced from 320px - 20% smaller */
+            gap: 1.6rem; /* Reduced from 2rem */
+            margin-bottom: 2.4rem; /* Reduced from 3rem */
+            padding: 0;
         }
 
-        .card h3 {
+        .enhanced-stat-card {
+            /* Glassmorphism blurry transparent background */
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(248, 250, 252, 0.1) 50%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 1.6rem; /* Reduced from 2rem - 20% smaller */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            
+            /* Cool gradient border effect */
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                padding: 2px;
+                background: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.3),
+                    rgba(59, 130, 246, 0.2),
+                    rgba(255, 255, 255, 0.1)
+                );
+                border-radius: inherit;
+                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                mask-composite: exclude;
+                -webkit-mask-composite: xor;
+            }
+        }
+
+        .enhanced-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .enhanced-stat-card.attendance-card::before {
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+        }
+
+        .enhanced-stat-card.fees-card::before {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .enhanced-stat-card.cgpa-card::before {
+            background: linear-gradient(90deg, #8b5cf6, #a855f7);
+        }
+
+        .enhanced-stat-card.documents-card::before {
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+        }
+
+        .enhanced-stat-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.25),
+                0 0 50px rgba(59, 130, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            
+            /* Enhanced glassmorphism on hover */
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.25) 0%, 
+                rgba(248, 250, 252, 0.2) 50%,
+                rgba(255, 255, 255, 0.15) 100%
+            );
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+        }
+
+        /* Pulse animation for active card */
+        .enhanced-stat-card.active {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 
+                    0 10px 30px rgba(0, 0, 0, 0.08),
+                    0 0 20px rgba(59, 130, 246, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 15px 35px rgba(0, 0, 0, 0.12),
+                    0 0 30px rgba(59, 130, 246, 0.2);
+            }
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem; /* Reduced from 1.5rem */
+            margin-bottom: 1.2rem; /* Reduced from 1.5rem */
+        }
+
+        .stat-icon-container {
+            width: 48px; /* Reduced from 60px - 20% smaller */
+            height: 48px; /* Reduced from 60px */
+            border-radius: 14px; /* Reduced from 16px */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem; /* Reduced from 1.5rem */
+            color: white;
+            position: relative;
+            overflow: hidden;
+            
+            /* Enhanced shadow and glow effects */
+            box-shadow: 
+                0 6px 16px rgba(0, 0, 0, 0.15), /* Reduced from 8px 20px */
+                0 0 12px rgba(255, 255, 255, 0.2) inset; /* Reduced from 15px */
+            
+            /* Animated background shimmer */
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .stat-icon-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%
+            );
+            animation: icon-shine 2s infinite;
+        }
+
+        @keyframes icon-shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .stat-icon-container.attendance {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8, #06b6d4);
+            background-size: 200% 200%;
+        }
+
+        .stat-icon-container.fees {
+            background: linear-gradient(135deg, #10b981, #047857, #059669);
+            background-size: 200% 200%;
+        }
+
+        .stat-icon-container.cgpa {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #a855f7);
+            background-size: 200% 200%;
+        }
+
+        .stat-icon-container.documents {
+            background: linear-gradient(135deg, #f59e0b, #d97706, #f97316);
+            background-size: 200% 200%;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #64748b;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .stat-main-value {
+            font-size: 2rem; /* Reduced from 2.5rem - 20% smaller */
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1;
+            margin: 0;
+            
+            /* Enhanced text styling with glassmorphism effect */
+            background: linear-gradient(135deg, #1e293b 0%, #475569 50%, #64748b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            
+            /* Enhanced text shadow for depth */
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+            
+            /* Number animation on load */
+            animation: count-up 1.5s ease-out;
+        }
+
+        @keyframes count-up {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.8); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .stat-card-body {
+            margin-bottom: 1.2rem; /* Reduced from 1.5rem */
+        }
+
+        .stat-description {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.4;
+        }
+
+        .progress-indicator {
+            margin: 0.8rem 0; /* Reduced from 1rem 0 */
+        }
+
+        .progress-bar-stat {
+            width: 100%;
+            height: 6px; /* Reduced from 8px */
+            background: rgba(255, 255, 255, 0.2); /* More transparent glassmorphism */
+            border-radius: 3px; /* Reduced from 4px */
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-fill-stat {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+            position: relative;
+            
+            /* Enhanced progress animation */
+            animation: progress-fill 2s ease-out;
+        }
+
+        @keyframes progress-fill {
+            from { width: 0 !important; }
+        }
+
+        .progress-fill-stat::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%
+            );
+            animation: progress-shine 2s infinite;
+        }
+
+        @keyframes progress-shine {
+            0% { transform: translateX(-100%); }
+            50%, 100% { transform: translateX(100%); }
+        }
+
+        .attendance-progress {
+            background: linear-gradient(90deg, #3b82f6, #06b6d4, #0ea5e9);
+            background-size: 200% 100%;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .status-timeline {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            
+            /* Enhanced timeline with animation */
+            animation: timeline-appear 1s ease-out 0.5s both;
+        }
+
+        @keyframes timeline-appear {
+            from { 
+                opacity: 0; 
+                transform: translateX(-20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            
+            /* Pulse animation for active dots */
+            transition: all 0.3s ease;
+        }
+
+        .timeline-dot.completed {
+            background: #10b981;
+            border-color: #10b981;
+            
+            /* Enhanced glow effect */
+            box-shadow: 
+                0 0 10px rgba(16, 185, 129, 0.4),
+                0 0 20px rgba(16, 185, 129, 0.2);
+            
+            /* Pulse animation */
+            animation: pulse-completed 2s infinite;
+        }
+
+        @keyframes pulse-completed {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); 
+            }
+            50% { 
+                transform: scale(1.1); 
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.6); 
+            }
+        }
+
+        .timeline-dot.upcoming {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            
+            /* Subtle glow for upcoming */
+            box-shadow: 0 0 8px rgba(203, 213, 225, 0.3);
+            animation: pulse-upcoming 3s infinite;
+        }
+
+        @keyframes pulse-upcoming {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .timeline-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #10b981, #22c55e, #f59e0b);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.6) 50%, 
+                transparent 100%
+            );
+            animation: timeline-shine 2s infinite;
+        }
+
+        @keyframes timeline-shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .cgpa-visual {
+            margin: 1rem 0;
+        }
+
+        .cgpa-scale {
+            position: relative;
+            height: 30px;
+            background: #f1f5f9;
+            border-radius: 15px;
+            overflow: hidden;
+            
+            /* Enhanced scale design */
+            border: 2px solid rgba(139, 92, 246, 0.1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            animation: cgpa-appear 1s ease-out 0.8s both;
+        }
+
+        @keyframes cgpa-appear {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .scale-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #ef4444 0%, 
+                #f59e0b 25%, 
+                #eab308 50%, 
+                #84cc16 75%, 
+                #22c55e 100%
+            );
+            transform: translateY(-50%);
+            border-radius: 2px;
+            
+            /* Animated background */
+            background-size: 200% 100%;
+            animation: scale-shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes scale-shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .scale-marker {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            
+            /* Enhanced marker animation */
+            animation: marker-bounce 1s ease-out 1.2s both;
+        }
+
+        @keyframes marker-bounce {
+            0% { 
+                opacity: 0; 
+                transform: translateY(-50%) translateX(-20px) scale(0.5); 
+            }
+            60% { 
+                transform: translateY(-50%) translateX(5px) scale(1.1); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(-50%) translateX(0) scale(1); 
+            }
+        }
+
+        .marker-dot {
+            width: 16px;
+            height: 16px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.2),
+                0 0 12px rgba(139, 92, 246, 0.6),
+                0 0 24px rgba(139, 92, 246, 0.3);
+            position: relative;
+            left: -8px;
+            
+            /* Pulse animation */
+            animation: marker-pulse 2s infinite;
+        }
+
+        @keyframes marker-pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 
+                    0 2px 8px rgba(0, 0, 0, 0.2),
+                    0 0 12px rgba(139, 92, 246, 0.6); 
+            }
+            50% { 
+                transform: scale(1.1); 
+                box-shadow: 
+                    0 2px 8px rgba(0, 0, 0, 0.2),
+                    0 0 20px rgba(139, 92, 246, 0.8); 
+            }
+        }
+
+        .marker-value {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .marker-value::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: #1e293b;
+        }
+
+        .document-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1rem 0;
+            
+            /* Enhanced list animation */
+            animation: document-list-appear 1s ease-out 1.5s both;
+        }
+
+        @keyframes document-list-appear {
+            from { 
+                opacity: 0; 
+                transform: translateX(-10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 8px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            
+            /* Enhanced visual feedback */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(245, 158, 11, 0.1) 50%, 
+                transparent 100%
+            );
+            transition: left 0.5s ease;
+        }
+
+        .doc-item:hover::before {
+            left: 100%;
+        }
+
+        .doc-item:hover {
+            transform: translateX(5px);
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 
+                0 4px 12px rgba(245, 158, 11, 0.2),
+                0 0 15px rgba(245, 158, 11, 0.1);
+        }
+
+        .doc-item i {
+            color: #f59e0b;
+            width: 20px;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            
+            /* Icon animation */
+            transition: transform 0.3s ease;
+        }
+
+        .doc-item:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .doc-item span {
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .stat-card-footer {
+            margin-top: auto;
+        }
+
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .trend-indicator.positive {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            color: #166534;
+        }
+
+        .trend-indicator i {
+            font-size: 0.75rem;
+        }
+
+        .status-badge-enhanced {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge-enhanced.paid {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            color: #166534;
+        }
+
+        .performance-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .performance-indicator.excellent {
+            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+            color: #6b21a8;
+        }
+
+        .action-button-enhanced {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            
+            /* Enhanced shadow and glow */
+            box-shadow: 
+                0 4px 12px rgba(245, 158, 11, 0.3),
+                0 0 20px rgba(245, 158, 11, 0.1);
+        }
+
+        .action-button-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%
+            );
+            transition: left 0.6s ease;
+        }
+
+        .action-button-enhanced:hover::before {
+            left: 100%;
+        }
+
+        .action-button-enhanced:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 12px 25px rgba(245, 158, 11, 0.4),
+                0 0 30px rgba(245, 158, 11, 0.2);
+            background: linear-gradient(135deg, #d97706, #b45309);
+        }
+
+        .action-button-enhanced:active {
+            transform: translateY(-1px) scale(1);
+            transition: all 0.1s ease;
+        }
+
+        /* Responsive Design for Enhanced Cards */
+        @media (max-width: 768px) {
+            .enhanced-dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem; /* Reduced from 1.5rem */
+                margin-bottom: 1.6rem; /* Reduced from 2rem */
+            }
+            
+            .enhanced-stat-card {
+                padding: 1.2rem; /* Reduced from 1.5rem */
+            }
+            
+            .stat-card-header {
+                gap: 0.8rem; /* Reduced from 1rem */
+                margin-bottom: 0.8rem; /* Reduced from 1rem */
+            }
+            
+            .stat-icon-container {
+                width: 40px; /* Reduced from 50px */
+                height: 40px; /* Reduced from 50px */
+                font-size: 1rem; /* Reduced from 1.25rem */
+            }
+            
+            .stat-main-value {
+                font-size: 1.6rem; /* Reduced from 2rem */
+            }
+            
+            .marker-value {
+                font-size: 0.56rem; /* Reduced from 0.7rem */
+                padding: 0.16rem 0.32rem; /* Reduced from 0.2rem 0.4rem */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .enhanced-stat-card {
+                padding: 1rem; /* Reduced from 1.25rem */
+            }
+            
+            .stat-card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 0.8rem; /* Reduced from 1rem */
+            }
+            
+            .stat-main-value {
+                font-size: 1.4rem; /* Reduced from 1.75rem */
+            }
+            
+            .document-list {
+                gap: 0.4rem; /* Reduced from 0.5rem */
+            }
+            
+            .doc-item {
+                padding: 0.4rem; /* Reduced from 0.5rem */
+                font-size: 0.64rem; /* Reduced from 0.8rem */
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 1rem;
+            gap: 0.75rem;
+        }
+
+        .card-header i {
+            font-size: 1.25rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--peach-light), rgba(208, 129, 106, 0.2));
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .card-header h3 {
+            margin: 0;
             color: var(--gray);
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .stat {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .card-desc {
             color: var(--gray);
             font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .trend {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .trend.positive {
+            background: rgba(139, 115, 85, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .status-badge.paid {
+            background: rgba(139, 115, 85, 0.1);
+            color: var(--success);
+        }
+
+        .quick-action-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+        }
+
+        /* Section Grid Layout */
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--dark);
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Academic Progress Grid */
+        .academic-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .progress-card {
+            background: linear-gradient(135deg, var(--peach-light), white);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-header h4 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .progress-percentage {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        .progress-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        /* Weekly Overview Grid */
+        .weekly-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .week-item {
+            background: linear-gradient(135deg, var(--peach-light), white);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .week-item.upcoming {
+            border-left-color: var(--warning);
+        }
+
+        .week-day {
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .week-subjects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .subject-tag {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .week-events {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .event-item i {
+            color: var(--warning);
+            font-size: 0.8rem;
+        }
+
+        /* Enhanced Info Grid Layout */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-card-enhanced {
+            background: linear-gradient(135deg, white, var(--peach-light));
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .profile-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-img-enhanced {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.3);
+        }
+
+        .profile-name-enhanced {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .profile-id-enhanced {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .profile-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge.active {
+            background: rgba(139, 115, 85, 0.1);
+            color: var(--success);
+        }
+
+        .badge.academic {
+            background: rgba(92, 64, 51, 0.1);
+            color: var(--primary);
+        }
+
+        .profile-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: linear-gradient(135deg, var(--peach-light), var(--accent));
+            color: var(--dark);
+            border: 1px solid var(--border);
+        }
+
+        .action-btn.secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(208, 129, 106, 0.3);
+        }
+
+        .details-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-cards-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .info-card-enhanced {
+            background: linear-gradient(135deg, white, var(--peach-light));
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            border: 1px solid var(--border);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .info-card-header i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .info-card-header h3 {
+            margin: 0;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .info-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item-enhanced {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .info-label-enhanced {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value-enhanced {
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .performance-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .performance-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .performance-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .performance-value.highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+        }
+
+        /* Notifications & Quick Actions Grid */
+        .notifications-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .notifications-section, .quick-actions-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15);
+            border: 1px solid var(--border);
+        }
+
+        .notifications-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .notification-item-enhanced {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            background: linear-gradient(135deg, var(--peach-light), white);
+            transition: all 0.3s ease;
+        }
+
+        .notification-item-enhanced:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(92, 64, 51, 0.2);
+        }
+
+        .notification-item-enhanced.urgent {
+            border-left-color: var(--danger);
+            background: linear-gradient(135deg, rgba(139, 90, 60, 0.1), white);
+        }
+
+        .notification-item-enhanced.warning {
+            border-left-color: var(--warning);
+            background: linear-gradient(135deg, rgba(160, 130, 109, 0.1), white);
+        }
+
+        .notification-item-enhanced.info {
+            border-left-color: var(--secondary);
+            background: linear-gradient(135deg, rgba(208, 129, 106, 0.1), white);
+        }
+
+        .notification-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 1rem;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title-enhanced {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .notification-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .notification-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .notification-priority {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-action-card {
+            background: linear-gradient(135deg, var(--peach-light), white);
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .quick-action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(92, 64, 51, 0.2);
+            background: linear-gradient(135deg, white, var(--peach-light));
+        }
+
+        .quick-action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.25rem;
+        }
+
+        .quick-action-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--dark);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .quick-action-card p {
+            margin: 0 0 1rem 0;
+            color: var(--gray);
+            font-size: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .quick-action-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .quick-action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 64, 51, 0.3);
         }
 
         /* Profile Section */
@@ -360,6 +1758,15 @@
             margin-bottom: 2rem;
         }
 
+        /* Table wrapper for responsive scrolling */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 1rem 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
         .data-table th, .data-table td {
             padding: 1rem;
             text-align: left;
@@ -373,6 +1780,13 @@
 
         .data-table tr:hover {
             background-color: #f8f9fa;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         /* Forms */
@@ -630,6 +2044,41 @@
                 padding: var(--space-sm);
             }
 
+            .section-grid {
+                grid-template-columns: 1fr;
+                gap: var(--gap-sm);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: var(--gap-sm);
+            }
+
+            .info-items-grid {
+                grid-template-columns: 1fr;
+                gap: var(--gap-xs);
+            }
+
+            .performance-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--gap-xs);
+            }
+
+            .notifications-grid {
+                grid-template-columns: 1fr;
+                gap: var(--gap-sm);
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--gap-xs);
+            }
+
+            .profile-actions {
+                grid-template-columns: 1fr;
+                gap: var(--gap-xs);
+            }
+
             .stat-card {
                 padding: var(--space-md);
                 text-align: center;
@@ -706,6 +2155,7 @@
                 text-align: center;
                 font-size: 1.1rem;
                 flex-shrink: 0; /* Prevent icon from shrinking */
+                color: white; /* Ensure visibility */
             }
 
             .nav-text {
@@ -713,6 +2163,7 @@
                 font-size: var(--text-base);
                 font-weight: 500;
                 white-space: nowrap; /* Prevent text wrapping */
+                color: white; /* Ensure visibility */
             }
 
             /* Charts */
@@ -1030,14 +2481,19 @@
             .data-table {
                 font-size: 0.75rem;
                 overflow-x: auto;
-                display: block;
-                white-space: nowrap;
+                display: table; /* Keep as table instead of block */
+                white-space: normal; /* Allow text wrapping */
+                width: 100%;
+                min-width: 600px; /* Ensure minimum width for proper display */
             }
 
             .data-table th,
             .data-table td {
-                padding: 8px 4px;
-                min-width: 80px;
+                padding: 8px 12px; /* Increased horizontal padding */
+                min-width: 120px; /* Increased minimum width */
+                white-space: normal; /* Allow text wrapping in cells */
+                word-wrap: break-word; /* Break long words if needed */
+                vertical-align: top; /* Align content to top */
             }
 
             .form-container {
@@ -1323,6 +2779,10 @@
                 margin-bottom: 2px;
                 border-radius: 8px;
                 transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                gap: 12px; /* Consistent gap */
+                color: white; /* Ensure visibility */
             }
 
             .nav-item:hover {
@@ -1332,12 +2792,16 @@
 
             .nav-item i {
                 width: 20px;
-                margin-right: 12px;
+                margin-right: 0; /* Use gap instead */
                 font-size: 1rem;
+                flex-shrink: 0;
+                color: white;
             }
 
             .nav-text {
                 font-size: 0.95rem;
+                color: white;
+                flex: 1;
             }
 
             /* Logo Mobile */
@@ -1566,123 +3030,416 @@
 
                 <!-- Dashboard View -->
                 <div id="dashboard-view" class="view active">
-                    <div class="dashboard-grid">
-                        <div class="card">
-                            <h3>Attendance</h3>
-                            <div class="stat">87%</div>
-                            <p class="card-desc">Overall attendance percentage</p>
+                    <!-- Enhanced Quick Stats Grid -->
+                    <div class="enhanced-dashboard-grid">
+                        <!-- Attendance Card -->
+                        <div class="enhanced-stat-card attendance-card">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-container attendance">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-title">Attendance</h3>
+                                    <div class="stat-main-value">87%</div>
+                                </div>
+                            </div>
+                            <div class="stat-card-body">
+                                <p class="stat-description">Overall attendance percentage</p>
+                                <div class="progress-indicator">
+                                    <div class="progress-bar-stat">
+                                        <div class="progress-fill-stat attendance-progress" style="width: 87%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <div class="trend-indicator positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>+2% from last month</span>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="card success">
-                            <h3>Fees Status</h3>
-                            <div class="stat">Paid</div>
-                            <p class="card-desc">Next due: 15 Dec 2023</p>
+                        <!-- Fees Status Card -->
+                        <div class="enhanced-stat-card fees-card">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-container fees">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-title">Fees Status</h3>
+                                    <div class="stat-main-value">Paid</div>
+                                </div>
+                            </div>
+                            <div class="stat-card-body">
+                                <p class="stat-description">Next due: 15 Dec 2023</p>
+                                <div class="status-timeline">
+                                    <div class="timeline-dot completed"></div>
+                                    <div class="timeline-line"></div>
+                                    <div class="timeline-dot upcoming"></div>
+                                </div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <div class="status-badge-enhanced paid">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Up to Date</span>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="card">
-                            <h3>CGPA</h3>
-                            <div class="stat">8.72</div>
-                            <p class="card-desc">Current semester: 8.9</p>
+                        <!-- CGPA Card -->
+                        <div class="enhanced-stat-card cgpa-card">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-container cgpa">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-title">CGPA</h3>
+                                    <div class="stat-main-value">8.72</div>
+                                </div>
+                            </div>
+                            <div class="stat-card-body">
+                                <p class="stat-description">Current semester: 8.9</p>
+                                <div class="cgpa-visual">
+                                    <div class="cgpa-scale">
+                                        <div class="scale-marker" style="left: 87.2%">
+                                            <div class="marker-dot"></div>
+                                            <span class="marker-value">8.72</span>
+                                        </div>
+                                        <div class="scale-line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <div class="performance-indicator excellent">
+                                    <i class="fas fa-trending-up"></i>
+                                    <span>Excellent Performance</span>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="card warning">
-                            <h3>Pending Documents</h3>
-                            <div class="stat">2</div>
-                            <p class="card-desc">Need to submit</p>
+                        <!-- Pending Documents Card -->
+                        <div class="enhanced-stat-card documents-card">
+                            <div class="stat-card-header">
+                                <div class="stat-icon-container documents">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-title">Pending Documents</h3>
+                                    <div class="stat-main-value">2</div>
+                                </div>
+                            </div>
+                            <div class="stat-card-body">
+                                <p class="stat-description">Documents need to be submitted</p>
+                                <div class="document-list">
+                                    <div class="doc-item">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>ID Proof Copy</span>
+                                    </div>
+                                    <div class="doc-item">
+                                        <i class="fas fa-file-image"></i>
+                                        <span>Passport Photo</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-card-footer">
+                                <button class="action-button-enhanced">
+                                    <i class="fas fa-upload"></i>
+                                    <span>Upload Now</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Overview Grid -->
+                    <div class="section-grid">
+                        <div class="grid-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-chart-line"></i>
+                                Academic Progress
+                            </h2>
+                            <div class="academic-grid">
+                                <div class="progress-card">
+                                    <div class="progress-header">
+                                        <h4>Semester Progress</h4>
+                                        <span class="progress-percentage">75%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%"></div>
+                                    </div>
+                                    <p class="progress-desc">12 weeks completed out of 16</p>
+                                </div>
+                                
+                                <div class="progress-card">
+                                    <div class="progress-header">
+                                        <h4>Assignment Completion</h4>
+                                        <span class="progress-percentage">90%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 90%"></div>
+                                    </div>
+                                    <p class="progress-desc">18 out of 20 assignments completed</p>
+                                </div>
+                                
+                                <div class="progress-card">
+                                    <div class="progress-header">
+                                        <h4>Lab Work</h4>
+                                        <span class="progress-percentage">85%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%"></div>
+                                    </div>
+                                    <p class="progress-desc">17 out of 20 lab sessions completed</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-calendar-check"></i>
+                                This Week Overview
+                            </h2>
+                            <div class="weekly-grid">
+                                <div class="week-item">
+                                    <div class="week-day">Today</div>
+                                    <div class="week-subjects">
+                                        <span class="subject-tag">Data Structures</span>
+                                        <span class="subject-tag">Web Dev</span>
+                                    </div>
+                                </div>
+                                <div class="week-item">
+                                    <div class="week-day">Tomorrow</div>
+                                    <div class="week-subjects">
+                                        <span class="subject-tag">Algorithms</span>
+                                        <span class="subject-tag">Database</span>
+                                    </div>
+                                </div>
+                                <div class="week-item upcoming">
+                                    <div class="week-day">Upcoming</div>
+                                    <div class="week-events">
+                                        <div class="event-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Assignment Due: Friday</span>
+                                        </div>
+                                        <div class="event-item">
+                                            <i class="fas fa-clipboard-check"></i>
+                                            <span>Quiz: Monday</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="profile-container">
-                        <div class="profile-card">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Profile" class="profile-img">
-                            <h2 class="profile-name">Aryan Sharma</h2>
-                            <p class="profile-id">ST20230025</p>
-                            <button class="btn-upload">Upload Photo</button>
+                    <!-- Student Information Grid -->
+                    <div class="info-grid">
+                        <div class="profile-section">
+                            <div class="profile-card-enhanced">
+                                <div class="profile-header">
+                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Profile" class="profile-img-enhanced">
+                                    <div class="profile-details">
+                                        <h2 class="profile-name-enhanced">Aryan Sharma</h2>
+                                        <p class="profile-id-enhanced">ST20230025</p>
+                                        <div class="profile-badges">
+                                            <span class="badge active">Active Student</span>
+                                            <span class="badge academic">5th Semester</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-actions">
+                                    <button class="action-btn primary">
+                                        <i class="fas fa-camera"></i>
+                                        Update Photo
+                                    </button>
+                                    <button class="action-btn secondary">
+                                        <i class="fas fa-edit"></i>
+                                        Edit Profile
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="info-card">
-                            <h2 class="section-title">Personal Information</h2>
-                            
-                            <div class="info-group">
-                                <div class="info-item">
-                                    <div class="info-label">Enrollment Number</div>
-                                    <div class="info-value">ST20230025</div>
+
+                        <div class="details-section">
+                            <div class="info-cards-grid">
+                                <div class="info-card-enhanced">
+                                    <div class="info-card-header">
+                                        <i class="fas fa-user"></i>
+                                        <h3>Personal Information</h3>
+                                    </div>
+                                    <div class="info-items-grid">
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Enrollment Number</span>
+                                            <span class="info-value-enhanced">ST20230025</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Course</span>
+                                            <span class="info-value-enhanced">B.Tech Computer Science</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Date of Birth</span>
+                                            <span class="info-value-enhanced">15 May 2002</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Phone Number</span>
+                                            <span class="info-value-enhanced">+91 9876543210</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Email</span>
+                                            <span class="info-value-enhanced">john.smith@example.com</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Admission Date</span>
+                                            <span class="info-value-enhanced">1 Aug 2020</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                
-                                <div class="info-item">
-                                    <div class="info-label">Course</div>
-                                    <div class="info-value">B.Tech Computer Science</div>
+
+                                <div class="info-card-enhanced">
+                                    <div class="info-card-header">
+                                        <i class="fas fa-users"></i>
+                                        <h3>Family Information</h3>
+                                    </div>
+                                    <div class="info-items-grid">
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Father's Name</span>
+                                            <span class="info-value-enhanced">Robert Smith</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Father's Contact</span>
+                                            <span class="info-value-enhanced">+91 9876543211</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Mother's Name</span>
+                                            <span class="info-value-enhanced">Mary Smith</span>
+                                        </div>
+                                        <div class="info-item-enhanced">
+                                            <span class="info-label-enhanced">Mother's Contact</span>
+                                            <span class="info-value-enhanced">+91 9876543212</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="info-group">
-                                <div class="info-item">
-                                    <div class="info-label">Date of Birth</div>
-                                    <div class="info-value">15 May 2002</div>
-                                </div>
-                                
-                                <div class="info-item">
-                                    <div class="info-label">Phone Number</div>
-                                    <div class="info-value">+91 9876543210</div>
-                                </div>
-                            </div>
-                            
-                            <div class="info-group">
-                                <div class="info-item">
-                                    <div class="info-label">Email</div>
-                                    <div class="info-value">john.smith@example.com</div>
-                                </div>
-                                
-                                <div class="info-item">
-                                    <div class="info-label">Admission Date</div>
-                                    <div class="info-value">1 Aug 2020</div>
-                                </div>
-                            </div>
-                            
-                            <h2 class="section-title">Family Information</h2>
-                            
-                            <div class="info-group">
-                                <div class="info-item">
-                                    <div class="info-label">Father's Name</div>
-                                    <div class="info-value">Robert Smith</div>
-                                </div>
-                                
-                                <div class="info-item">
-                                    <div class="info-label">Father's Contact</div>
-                                    <div class="info-value">+91 9876543211</div>
-                                </div>
-                            </div>
-                            
-                            <div class="info-group">
-                                <div class="info-item">
-                                    <div class="info-label">Mother's Name</div>
-                                    <div class="info-value">Mary Smith</div>
-                                </div>
-                                
-                                <div class="info-item">
-                                    <div class="info-label">Mother's Contact</div>
-                                    <div class="info-value">+91 9876543212</div>
+
+                                <div class="info-card-enhanced">
+                                    <div class="info-card-header">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <h3>Academic Performance</h3>
+                                    </div>
+                                    <div class="performance-grid">
+                                        <div class="performance-item">
+                                            <div class="performance-label">Current CGPA</div>
+                                            <div class="performance-value highlight">8.72</div>
+                                        </div>
+                                        <div class="performance-item">
+                                            <div class="performance-label">Semester SGPA</div>
+                                            <div class="performance-value">8.9</div>
+                                        </div>
+                                        <div class="performance-item">
+                                            <div class="performance-label">Overall Rank</div>
+                                            <div class="performance-value">15/120</div>
+                                        </div>
+                                        <div class="performance-item">
+                                            <div class="performance-label">Credits Earned</div>
+                                            <div class="performance-value">95/160</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="notifications">
-                        <h2 class="section-title">Notifications & Updates</h2>
-                        
-                        <div class="notification-item">
-                            <div class="notification-title">Last date for fee submission is 15th December</div>
-                            <div class="notification-date">Posted on: 1 Dec 2023</div>
+                    <!-- Notifications & Quick Actions Grid -->
+                    <div class="notifications-grid">
+                        <div class="notifications-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-bell"></i>
+                                Recent Notifications
+                            </h2>
+                            <div class="notifications-container">
+                                <div class="notification-item-enhanced urgent">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-title-enhanced">Fee Payment Due</div>
+                                        <div class="notification-desc">Last date for fee submission is 15th December</div>
+                                        <div class="notification-meta">
+                                            <span class="notification-date">1 Dec 2023</span>
+                                            <span class="notification-priority">High Priority</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item-enhanced info">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-title-enhanced">Exam Schedule</div>
+                                        <div class="notification-desc">Semester exams starting from 10th January</div>
+                                        <div class="notification-meta">
+                                            <span class="notification-date">28 Nov 2023</span>
+                                            <span class="notification-priority">Medium Priority</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item-enhanced warning">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-title-enhanced">Hostel Fee Due</div>
+                                        <div class="notification-desc">Hostel fee payment due by 5th December</div>
+                                        <div class="notification-meta">
+                                            <span class="notification-date">25 Nov 2023</span>
+                                            <span class="notification-priority">Medium Priority</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="notification-item">
-                            <div class="notification-title">Semester exams starting from 10th January</div>
-                            <div class="notification-date">Posted on: 28 Nov 2023</div>
-                        </div>
-                        
-                        <div class="notification-item">
-                            <div class="notification-title">Hostel fee payment due by 5th December</div>
-                            <div class="notification-date">Posted on: 25 Nov 2023</div>
+
+                        <div class="quick-actions-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-bolt"></i>
+                                Quick Actions
+                            </h2>
+                            <div class="quick-actions-grid">
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-download"></i>
+                                    </div>
+                                    <h4>Download Results</h4>
+                                    <p>Get your latest semester results</p>
+                                    <button class="quick-action-button">Download</button>
+                                </div>
+                                
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-credit-card"></i>
+                                    </div>
+                                    <h4>Pay Fees</h4>
+                                    <p>Make online fee payments</p>
+                                    <button class="quick-action-button">Pay Now</button>
+                                </div>
+                                
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-file-upload"></i>
+                                    </div>
+                                    <h4>Submit Documents</h4>
+                                    <p>Upload pending documents</p>
+                                    <button class="quick-action-button">Upload</button>
+                                </div>
+                                
+                                <div class="quick-action-card">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </div>
+                                    <h4>Book Appointment</h4>
+                                    <p>Schedule meeting with faculty</p>
+                                    <button class="quick-action-button">Book</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1691,17 +3448,18 @@
                 <div id="timetable-view" class="view">
                     <h2 class="section-title">Class Timetable</h2>
                     <div class="form-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Monday</th>
-                                    <th>Tuesday</th>
-                                    <th>Wednesday</th>
-                                    <th>Thursday</th>
-                                    <th>Friday</th>
-                                </tr>
-                            </thead>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Monday</th>
+                                        <th>Tuesday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                    </tr>
+                                </thead>
                             <tbody>
                                 <tr>
                                     <td>9:00 - 10:00</td>
@@ -1753,6 +3511,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
 
@@ -2130,16 +3889,17 @@
                     
                     <div class="form-container">
                         <h3 class="form-title">Fee History</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Semester</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Semester</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
                             <tbody>
                                 <tr>
                                     <td>15 Jun 2023</td>
@@ -2171,6 +3931,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2345,6 +4106,172 @@
 
         // Initialize and update attendance periodically
         setInterval(updateAttendancePercentage, 5000);
+
+        // Enhanced Statistics Cards Functionality
+        function initializeEnhancedStatCards() {
+            const statCards = document.querySelectorAll('.enhanced-stat-card');
+            
+            statCards.forEach((card, index) => {
+                // Add hover effect with sound (optional)
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-12px) scale(1.03)';
+                    this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.2), 0 0 40px rgba(59, 130, 246, 0.15)';
+                    
+                    // Add active class for pulse animation
+                    this.classList.add('active');
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(59, 130, 246, 0.1)';
+                    
+                    // Remove active class
+                    this.classList.remove('active');
+                });
+                
+                // Add click ripple effect
+                card.addEventListener('click', function(e) {
+                    const ripple = document.createElement('div');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(59, 130, 246, 0.3);
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        animation: ripple-effect 0.6s ease-out;
+                        pointer-events: none;
+                        z-index: 1000;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                    
+                    // Trigger card-specific actions
+                    const cardType = this.classList[1]; // attendance-card, fees-card, etc.
+                    handleCardClick(cardType);
+                });
+                
+                // Stagger animation on page load
+                setTimeout(() => {
+                    card.style.animation = `stat-card-appear 0.8s ease-out ${index * 0.2}s both`;
+                }, 100);
+            });
+        }
+
+        // Handle card-specific interactions
+        function handleCardClick(cardType) {
+            switch(cardType) {
+                case 'attendance-card':
+                    console.log('Attendance card clicked - could show detailed attendance view');
+                    break;
+                case 'fees-card':
+                    console.log('Fees card clicked - could show fee payment options');
+                    break;
+                case 'cgpa-card':
+                    console.log('CGPA card clicked - could show detailed grades');
+                    break;
+                case 'documents-card':
+                    console.log('Documents card clicked - could show upload interface');
+                    break;
+            }
+        }
+
+        // Animate progress bars with enhanced effects
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill-stat');
+            
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                    bar.style.transition = 'width 2s cubic-bezier(0.4, 0, 0.2, 1)';
+                }, 500);
+            });
+        }
+
+        // Animate numbers counting up
+        function animateStatNumbers() {
+            const statValues = document.querySelectorAll('.stat-main-value');
+            
+            statValues.forEach(stat => {
+                const finalValue = stat.textContent;
+                const isPercentage = finalValue.includes('%');
+                const isCGPA = finalValue.includes('.');
+                const isNumber = !isNaN(parseFloat(finalValue));
+                
+                if (isNumber) {
+                    const numericValue = parseFloat(finalValue);
+                    let currentValue = 0;
+                    const increment = numericValue / 30; // 30 steps
+                    
+                    const counter = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= numericValue) {
+                            currentValue = numericValue;
+                            clearInterval(counter);
+                        }
+                        
+                        if (isPercentage) {
+                            stat.textContent = Math.round(currentValue) + '%';
+                        } else if (isCGPA) {
+                            stat.textContent = currentValue.toFixed(2);
+                        } else {
+                            stat.textContent = Math.round(currentValue);
+                        }
+                    }, 50);
+                }
+            });
+        }
+
+        // Initialize enhanced features on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                initializeEnhancedStatCards();
+                animateStatNumbers();
+                animateProgressBars();
+            }, 500);
+        });
+
+        // Add CSS animation for ripple effect
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes ripple-effect {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes stat-card-appear {
+                0% {
+                    opacity: 0;
+                    transform: translateY(30px) scale(0.95);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
     </script>
 
     <!-- Toast Notification Container -->
