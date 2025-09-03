@@ -5,6 +5,8 @@
 
 > **A comprehensive Educational Resource Planning (ERP) system designed for modern educational institutions, providing seamless management across multiple user roles.**
 
+[🔗 Click here to see the live page](https://aryanjha05.github.io/SIH/)
+
 ## 🌟 Features
 
 ### 👥 **Multi-Role Support**
