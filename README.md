@@ -243,7 +243,6 @@ If you have any questions or need support:
 
 1. **GitHub Issues**: [Create an issue](https://github.com/AryanJha05/SIH/issues)
 2. **Documentation**: Check this README and code comments
-3. **Email**: Contact the author directly
 
 ---
 
